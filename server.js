@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
+const Database = require('better-sqlite3');
 const TelegramBot = require('node-telegram-bot-api');
 const path = require('path');
 const cors = require('cors');
@@ -16,24 +16,21 @@ app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Database setup
-const db = new sqlite3.Database('./database.sqlite', (err) => {
-    if (err) {
-        console.error('Error opening database', err.message);
-    } else {
-        db.run(`CREATE TABLE IF NOT EXISTS orders (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT,
-            telegram TEXT,
-            description TEXT,
-            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-        )`);
+const db = new Database('./database.sqlite');
 
-        db.run(`CREATE TABLE IF NOT EXISTS admins (
-            chat_id TEXT PRIMARY KEY
-        )`);
-        console.log('Database connected and initialized.');
-    }
-});
+db.exec(`CREATE TABLE IF NOT EXISTS orders (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT,
+    telegram TEXT,
+    description TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)`);
+
+db.exec(`CREATE TABLE IF NOT EXISTS admins (
+    chat_id TEXT PRIMARY KEY
+)`);
+
+console.log('Database connected and initialized.');
 
 // Telegram Bot Logic
 bot.onText(/^\/start(?: (.+))?$/, (msg, match) => {
@@ -41,14 +38,13 @@ bot.onText(/^\/start(?: (.+))?$/, (msg, match) => {
     const password = match[1];
 
     if (password === ADMIN_PASSWORD) {
-        db.run(`INSERT OR IGNORE INTO admins (chat_id) VALUES (?)`, [chatId], function(err) {
-            if (err) {
-                bot.sendMessage(chatId, 'Произошла ошибка при сохранении прав администратора.');
-                return;
-            }
+        try {
+            db.prepare(`INSERT OR IGNORE INTO admins (chat_id) VALUES (?)`).run(chatId);
             bot.sendMessage(chatId, '✅ Пароль принят! Теперь вы будете получать уведомления о новых заказах с сайта.');
             console.log(`New admin registered: ${chatId}`);
-        });
+        } catch (err) {
+            bot.sendMessage(chatId, 'Произошла ошибка при сохранении прав администратора.');
+        }
     } else {
         bot.sendMessage(chatId, 'Добро пожаловать. Если вы администратор, введите /start <пароль>');
     }
@@ -62,39 +58,32 @@ app.post('/api/orders', (req, res) => {
         return res.status(400).json({ error: 'Name and description are required.' });
     }
 
-    db.run(
-        `INSERT INTO orders (name, telegram, description) VALUES (?, ?, ?)`,
-        [name, telegram || '', description],
-        function (err) {
-            if (err) {
-                console.error(err);
-                return res.status(500).json({ error: 'Database error' });
-            }
+    try {
+        const result = db.prepare(
+            `INSERT INTO orders (name, telegram, description) VALUES (?, ?, ?)`
+        ).run(name, telegram || '', description);
 
-            const orderId = this.lastID;
-            res.status(201).json({ success: true, message: 'Order created', orderId });
+        const orderId = result.lastInsertRowid;
+        res.status(201).json({ success: true, message: 'Order created', orderId });
 
-            // Send notification to all admins
-            db.all(`SELECT chat_id FROM admins`, [], (err, rows) => {
-                if (err) {
-                    console.error('Error fetching admins', err);
-                    return;
-                }
+        // Send notification to all admins
+        const admins = db.prepare(`SELECT chat_id FROM admins`).all();
+        const dateStr = new Date().toLocaleString('ru-RU');
+        const notificationMsg = `🔔 <b>Новая заявка</b>\n\n` +
+                                `📅 <b>Дата:</b> ${dateStr}\n` +
+                                `👤 <b>Имя:</b> ${name}\n` +
+                                `✈️ <b>Telegram:</b> ${telegram || 'Не указан'}\n` +
+                                `📝 <b>Описание:</b>\n${description}`;
 
-                const dateStr = new Date().toLocaleString('ru-RU');
-                const notificationMsg = `🔔 <b>Новая заявка</b>\n\n` +
-                                        `📅 <b>Дата:</b> ${dateStr}\n` +
-                                        `👤 <b>Имя:</b> ${name}\n` +
-                                        `✈️ <b>Telegram:</b> ${telegram || 'Не указан'}\n` +
-                                        `📝 <b>Описание:</b>\n${description}`;
+        admins.forEach(row => {
+            bot.sendMessage(row.chat_id, notificationMsg, { parse_mode: 'HTML' })
+                .catch(err => console.error('Error sending message to', row.chat_id, err));
+        });
 
-                rows.forEach(row => {
-                    bot.sendMessage(row.chat_id, notificationMsg, { parse_mode: 'HTML' })
-                        .catch(err => console.error('Error sending message to', row.chat_id, err));
-                });
-            });
-        }
-    );
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ error: 'Database error' });
+    }
 });
 
 // Start Server
