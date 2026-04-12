@@ -1,0 +1,520 @@
+<!DOCTYPE html><html class="dark scroll-smooth" lang="ru"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;900&amp;family=Manrope:wght@300;400;600;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-background": "#e1e0ff",
+                    "surface-tint": "#d0bcff",
+                    "primary": "#d0bcff",
+                    "on-tertiary-container": "#20008e",
+                    "secondary-container": "#3808dd",
+                    "primary-fixed-dim": "#d0bcff",
+                    "tertiary": "#c5c0ff",
+                    "surface-container-lowest": "#0a0b25",
+                    "on-primary-container": "#340080",
+                    "surface-container-high": "#272742",
+                    "outline": "#958ea0",
+                    "secondary-fixed-dim": "#c5c0ff",
+                    "inverse-primary": "#6d3bd7",
+                    "on-error": "#690005",
+                    "surface-container-highest": "#32324e",
+                    "on-secondary-container": "#b2acff",
+                    "on-secondary": "#2500a1",
+                    "tertiary-fixed-dim": "#c5c0ff",
+                    "surface-dim": "#10112a",
+                    "on-tertiary-fixed-variant": "#4032aa",
+                    "on-secondary-fixed-variant": "#3808dd",
+                    "surface-bright": "#363752",
+                    "surface": "#10112a",
+                    "error": "#ffb4ab",
+                    "error-container": "#93000a",
+                    "secondary": "#c5c0ff",
+                    "on-tertiary-fixed": "#150067",
+                    "on-surface": "#e1e0ff",
+                    "on-primary-fixed": "#23005c",
+                    "tertiary-container": "#8b81fa",
+                    "surface-container-low": "#181933",
+                    "on-tertiary": "#281194",
+                    "on-secondary-fixed": "#140067",
+                    "inverse-surface": "#e1e0ff",
+                    "surface-container": "#1c1d37",
+                    "tertiary-fixed": "#e4dfff",
+                    "inverse-on-surface": "#2d2e49",
+                    "secondary-fixed": "#e4dfff",
+                    "background": "#10112a",
+                    "primary-fixed": "#e9ddff",
+                    "on-surface-variant": "#cbc3d7",
+                    "on-primary": "#3c0091",
+                    "outline-variant": "#494454",
+                    "on-primary-fixed-variant": "#5516be",
+                    "surface-variant": "#32324e",
+                    "primary-container": "#a078ff",
+                    "on-error-container": "#ffdad6"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "1.5rem",
+                    "full": "9999px"
+            },
+            "fontFamily": {
+                    "headline": ["Space Grotesk", "sans-serif"],
+                    "body": ["Manrope", "sans-serif"],
+                    "label": ["Manrope", "sans-serif"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; background-color: #10112a; color: #e1e0ff; }
+        .font-space-grotesk { font-family: 'Space Grotesk', sans-serif; }
+        .grainy-gradient {
+            background: linear-gradient(135deg, #3808dd 0%, #a078ff 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .grainy-gradient::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: transparent url('https://grainy-gradients.vercel.app/noise.svg') repeat;
+            opacity: 0.2;
+            pointer-events: none;
+        }
+        
+        .animated-gradient {
+            background: linear-gradient(270deg, #3808dd, #a078ff, #6d3bd7);
+            background-size: 600% 600%;
+            animation: gradientShift 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .animated-gradient::before {
+            content: "";
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: transparent url('https://grainy-gradients.vercel.app/noise.svg') repeat;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: fit-content;
+            animation: marquee 20s linear infinite;
+        }
+        @keyframes marquee-slider {
+            0% { transform: translateX(-25%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee-slider {
+            display: flex;
+            width: fit-content;
+            animation: marquee-slider 40s linear infinite;
+        }
+    </style>
+</head>
+<body class="bg-background selection:bg-primary selection:text-on-primary-container">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-slate-950/60 backdrop-blur-xl border-b border-white/5 md:border-none shadow-sm md:shadow-none">
+<div class="flex flex-col md:flex-row justify-between items-center px-0 md:px-8 py-3 md:py-4 w-full max-w-screen-2xl mx-auto gap-3 md:gap-0">
+<div class="text-xl md:text-2xl font-black text-violet-400 tracking-widest uppercase font-space-grotesk text-center md:text-left w-full md:w-auto px-4 md:px-0 pt-1 md:pt-0" style="">ДИЗАЙН В РАМКЕ</div>
+<div class="flex flex-row overflow-x-auto hide-scrollbar w-full md:w-auto gap-6 md:gap-10 items-center justify-start md:justify-center px-4 md:px-0">
+<a class="text-slate-400 hover:text-violet-200 transition-colors font-space-grotesk font-bold uppercase tracking-tighter whitespace-nowrap text-sm md:text-base py-1" href="#about" style="">Обо мне</a>
+<a class="text-slate-400 hover:text-violet-200 transition-colors font-space-grotesk font-bold uppercase tracking-tighter whitespace-nowrap text-sm md:text-base py-1" href="#projects" style="">Проекты</a>
+<a class="text-slate-400 hover:text-violet-200 transition-colors font-space-grotesk font-bold uppercase tracking-tighter whitespace-nowrap text-sm md:text-base py-1" href="#experience" style="">Опыт</a>
+<a class="text-slate-400 hover:text-violet-200 transition-colors font-space-grotesk font-bold uppercase tracking-tighter whitespace-nowrap text-sm md:text-base py-1" href="#faq" style="">FAQ</a>
+<a class="text-primary hover:text-violet-200 transition-colors font-space-grotesk font-bold uppercase tracking-tighter whitespace-nowrap text-sm md:hidden py-1 flex items-center gap-1.5" href="http://t.me/frameoym" target="_blank" style="">Связаться <svg class="w-3.5 h-3.5 fill-current mb-[2px]" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="m20.665 3.717-17.73 6.837c-1.21.486-1.203 1.161-.222 1.462l4.552 1.42 10.532-6.645c.498-.303.953-.14.579.192l-8.533 7.701h-.002l.002.001-.314 4.692c.46 0 .663-.211.921-.46l2.211-2.15 4.599 3.397c.848.467 1.457.227 1.668-.785l3.019-14.228c.309-1.239-.473-1.8-1.282-1.434z"/></svg></a>
+</div>
+<a href="http://t.me/frameoym" target="_blank" class="hidden md:inline-block bg-primary-container text-on-primary-container px-6 py-2 rounded-xl font-bold font-space-grotesk uppercase tracking-tighter hover:opacity-80 transition-opacity scale-95 duration-200 text-center" style="">
+            Связаться
+        </a>
+</div>
+</nav>
+<main class="pt-20">
+<!-- Hero Section -->
+<section class="relative min-h-[921px] flex flex-col items-center justify-center text-center px-6 overflow-hidden">
+<div class="absolute inset-0 z-0 animated-gradient opacity-40 blur-3xl rounded-full scale-110 translate-y-[-20%]"></div>
+<div class="relative z-10 max-w-5xl">
+<h1 class="text-5xl sm:text-6xl md:text-[8rem] font-black font-headline leading-[0.9] tracking-tighter mb-8 uppercase" style="">
+            ДИЗАЙН <br> <span class="text-primary" style="">В РАМКЕ</span>
+</h1>
+<p class="text-base sm:text-lg md:text-xl text-on-surface-variant max-w-2xl mx-auto mb-12 font-body leading-relaxed" style="">Специализируюсь на дизайне для социальных сетей: посты, карусели, презентации, оформление профилей Twitch, баннеры, кнопки и аватарки.</p>
+<div class="flex flex-col sm:flex-row justify-center w-full px-4 sm:px-0 gap-4 sm:gap-6">
+<a href="#orderSection" class="w-full sm:w-auto bg-primary-container text-on-primary-container px-10 py-4 sm:py-5 rounded-xl text-base sm:text-lg font-bold font-space-grotesk uppercase tracking-widest shadow-2xl hover:scale-105 transition-transform inline-block text-center" style="">
+                Сделать заказ
+            </a>
+<a class="w-full sm:w-auto bg-surface-container-highest text-on-surface px-10 py-4 sm:py-5 rounded-xl text-base sm:text-lg font-bold font-space-grotesk uppercase tracking-widest hover:bg-surface-bright transition-colors inline-block text-center" href="https://t.me/framedesignx" target="_blank" style="">
+                Портфолио
+            </a>
+</div>
+</div>
+<!-- Scroll Indicator -->
+<div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+<span class="text-xs uppercase tracking-widest font-bold" style="">Листайте</span>
+<span class="material-symbols-outlined animate-bounce" style="">arrow_downward</span>
+</div>
+</section>
+<!-- Horizontal Project Slider -->
+<section class="py-24 bg-surface-container-low overflow-hidden" id="slider">
+<div class="px-8 mb-12 flex justify-between items-end">
+<h2 class="text-4xl md:text-6xl font-black font-headline uppercase" style="">Последние работы</h2>
+
+</div>
+<div class="overflow-hidden w-full flex">
+<div class="flex gap-8 px-8 w-max animate-marquee-slider" id="slider-track">
+<!-- 1. Twitch Design Pack -->
+<div class="flex-none w-[70vw] md:w-[25vw] cursor-pointer">
+<div class="rounded-xl overflow-hidden aspect-[4/5] relative group">
+<img alt="Twitch Design Pack" class="w-full h-full object-cover object-center origin-center transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida/ADBb0ujgwKFkx8NRlG8i4fHb_118u2Fo8OYv3gGRijCyqQzYC5zSpj3dDoSe9p1StbKxCpxTy7yYFkVvMpvdOOHxysBzgcpMyYPTmqOAytErkmAGCVcJGJRZMw84jf23xASYFkvFl-x4YdTzUuKT4Phd0ASYxWBqjvqPrdU6Uc8oK_-yVhaqtddexPj9DneJEPtUEy8b9KfR9TZJlJ_mLW0nMx0jOtd1znR-KBwKGdJQIlSZlt-97Ewz-w22LhV3q9mu4I6f4hhc6YyDcg" style="">
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent flex flex-col justify-end p-8">
+<span class="text-primary text-sm font-bold uppercase mb-2" style="">Stream Design</span>
+<h3 class="text-3xl font-black font-headline uppercase" style="">Twitch Design Pack</h3>
+</div>
+</div>
+</div>
+<!-- 2. Instagram Pack -->
+<div class="flex-none w-[70vw] md:w-[25vw] cursor-pointer">
+<div class="rounded-xl overflow-hidden aspect-[4/5] relative group">
+<img alt="Instagram Pack" class="w-full h-full object-cover object-center origin-center transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida/ADBb0uhFFnVYsgYcVrcNtKUGijHch8ad-62ytf88HGsisOF9eoE5zwcSyEPquwdolA3Q4d_gMwfUu-qOxFwLQYVytRVX7d3pyRMBEKzXy8UZVdVXB7S5gFu2EgrdIeukq0b8jF1hc5TkvlpEn-7UIx45SCwBppP3yYc_eYzkDbrlPSFXXxaDQ-P2AperItU5nq3Wn_S8sdUG5yONre55CeZDmA3Odmof0TeaDPPcbYZewYfwpj10EPMEVEmu2y-rWlhABaO1Cc6tI5oT" style="">
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent flex flex-col justify-end p-8">
+<span class="text-primary text-sm font-bold uppercase mb-2" style="">Social Media</span>
+<h3 class="text-3xl font-black font-headline uppercase" style="">Instagram Pack</h3>
+</div>
+</div>
+</div>
+<!-- 3. Presentation Design -->
+<div class="flex-none w-[70vw] md:w-[25vw] cursor-pointer">
+<div class="rounded-xl overflow-hidden aspect-[4/5] relative group">
+<img alt="Presentation Design" class="w-full h-full object-cover object-center origin-center transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida/ADBb0uivpxSDrmADd5g3LDnZ-A5zhJCm04ca2mV4EaWtU642k_EO7BWaIsDUgX1AP6gtfXJPz9n8Y-xnEynBNqbeWFKqmaSYZnJR59HTXhrFqRkUUWvGg9xvvqRLyQwKwlRfivOzYFPGtJ-CgIycgxnPF7NktKP4kCJg7PEX_PNGzXB2VO0xJE9ooR-f2_1O3StS-0X3krZZWuuPyOMP3z2cBaQA1YVBZBgUFKsIo3U7VJsDeflvfNmY5OLDxY4XioINvLg0OZ9aJAry" style="">
+<div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 to-transparent flex flex-col justify-end p-8">
+<span class="text-primary text-sm font-bold uppercase mb-2" style="">Presentation</span>
+<h3 class="text-3xl font-black font-headline uppercase" style="">re:box ПРЕЗЕНТАЦИЯ</h3>
+</div>
+</div>
+</div>
+<!-- 4. Soon -->
+<div class="flex-none w-[70vw] md:w-[25vw] cursor-pointer">
+<div class="rounded-xl overflow-hidden aspect-[4/5] relative group bg-surface-container-highest border-2 border-dashed border-outline-variant/30 flex items-center justify-center">
+<div class="text-center">
+<span class="material-symbols-outlined text-6xl text-primary/20 mb-4" style="">more_horiz</span>
+<h3 class="text-4xl font-black font-headline uppercase text-on-surface/30" style="">Скоро</h3>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+    // Duplicate slider content for infinite scroll (4 sets)
+    const track = document.getElementById('slider-track');
+    const originalBlock = track.innerHTML;
+    track.innerHTML = originalBlock + originalBlock + originalBlock + originalBlock;
+</script>
+</section>
+<!-- About Section -->
+<section class="py-32 px-8 max-w-screen-2xl mx-auto" id="about">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-20 items-start">
+<div class="md:sticky top-20 md:top-32 md:pl-24">
+<h2 class="text-6xl sm:text-8xl md:text-[11rem] font-black font-headline uppercase leading-none text-primary/10 select-none" style="">ОБО МНЕ</h2>
+<p class="text-3xl sm:text-4xl md:text-6xl font-bold font-headline uppercase mt-[-2rem] md:mt-[-4rem] leading-tight" style="">Меня зовут Рамиль, я графический <span class="text-primary" style="">дизайнер</span>.</p>
+</div>
+<div class="space-y-12">
+<p class="text-2xl font-light leading-relaxed text-on-surface-variant" style="">
+                Начал свой путь как хобби еще в школе, затем работал на фрилансе до 2025 года. Успешно окончил профильный курс и получил золотой сертификат отличия.
+            </p>
+<p class="text-lg text-slate-400 leading-relaxed" style="">
+                Мои основные инструменты — Figma и Adobe Photoshop. Специализируюсь на создании инфографики.<br><span class="text-primary font-bold" style="">Важно:</span> я не занимаюсь брендингом, дизайном упаковки или полиграфией для печати.<br>Мой фокус — качественный цифровой контент.
+            </p>
+<div class="pt-8 border-t border-outline-variant/30">
+<h4 class="text-sm font-bold uppercase tracking-widest text-primary mb-8" style="">Стек и навыки</h4>
+<div class="flex flex-wrap gap-3">
+<span class="px-6 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-full text-sm font-bold tracking-tight text-on-surface-variant hover:border-primary transition-colors cursor-default" style="">Figma</span>
+<span class="px-6 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-full text-sm font-bold tracking-tight text-on-surface-variant hover:border-primary transition-colors cursor-default" style="">Photoshop</span>
+<span class="px-6 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-full text-sm font-bold tracking-tight text-on-surface-variant hover:border-primary transition-colors cursor-default" style="">Инфографика</span>
+<span class="px-6 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-full text-sm font-bold tracking-tight text-on-surface-variant hover:border-primary transition-colors cursor-default" style="">SMM Дизайн</span>
+<span class="px-6 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-full text-sm font-bold tracking-tight text-on-surface-variant hover:border-primary transition-colors cursor-default" style="">Twitch оформление</span>
+<span class="px-6 py-3 bg-surface-container-lowest border border-outline-variant/20 rounded-full text-sm font-bold tracking-tight text-on-surface-variant hover:border-primary transition-colors cursor-default" style="">Презентации</span></div>
+</div>
+</div>
+</div>
+</section>
+<!-- How I Work Section -->
+<section class="py-32 bg-surface-container-lowest">
+<div class="max-w-7xl mx-auto px-8">
+<h2 class="text-4xl md:text-6xl font-black font-headline uppercase mb-24 text-center" style="">Как я работаю</h2>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-px bg-outline-variant/20">
+<div class="bg-surface p-10 group hover:bg-surface-container-low transition-colors duration-500">
+<span class="text-5xl font-black font-headline text-primary/30 group-hover:text-primary transition-colors" style="">01</span>
+<h3 class="text-xl font-bold uppercase mt-6 mb-4 font-space-grotesk tracking-tighter" style="">Брифинг</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed" style="">Обсуждаем цели вашего проекта, формат площадки и необходимые элементы оформления.</p>
+</div>
+<div class="bg-surface p-10 group hover:bg-surface-container-low transition-colors duration-500">
+<span class="text-5xl font-black font-headline text-primary/30 group-hover:text-primary transition-colors" style="">02</span>
+<h3 class="text-xl font-bold uppercase mt-6 mb-4 font-space-grotesk tracking-tighter" style="">Черновики</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed" style="">Создаю первые наброски и композиционные решения для утверждения общего стиля.</p>
+</div>
+<div class="bg-surface p-10 group hover:bg-surface-container-low transition-colors duration-500">
+<span class="text-5xl font-black font-headline text-primary/30 group-hover:text-primary transition-colors" style="">03</span>
+<h3 class="text-xl font-bold uppercase mt-6 mb-4 font-space-grotesk tracking-tighter" style="">Отрисовка</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed" style="">Финальная проработка графики в высоком качестве с учетом всех ваших правок.</p>
+</div>
+<div class="bg-surface p-10 group hover:bg-surface-container-low transition-colors duration-500">
+<span class="text-5xl font-black font-headline text-primary/30 group-hover:text-primary transition-colors" style="">04</span>
+<h3 class="text-xl font-bold uppercase mt-6 mb-4 font-space-grotesk tracking-tighter" style="">Передача</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed" style="">Вы получаете готовые файлы, оптимизированные под требования социальных сетей.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Projects List -->
+<section class="py-32 px-8" id="projects">
+<div class="max-w-screen-xl mx-auto space-y-16">
+<!-- Twitch Pack -->
+<div class="flex flex-col md:flex-row gap-12 items-center bg-surface-container-high rounded-xl overflow-hidden hover:bg-surface-container-highest transition-colors duration-300">
+<div class="w-full md:w-1/2 h-80 md:h-[500px]">
+<img alt="Twitch Pack for 1drappier" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0ujgwKFkx8NRlG8i4fHb_118u2Fo8OYv3gGRijCyqQzYC5zSpj3dDoSe9p1StbKxCpxTy7yYFkVvMpvdOOHxysBzgcpMyYPTmqOAytErkmAGCVcJGJRZMw84jf23xASYFkvFl-x4YdTzUuKT4Phd0ASYxWBqjvqPrdU6Uc8oK_-yVhaqtddexPj9DneJEPtUEy8b9KfR9TZJlJ_mLW0nMx0jOtd1znR-KBwKGdJQIlSZlt-97Ewz-w22LhV3q9mu4I6f4hhc6YyDcg" style="">
+</div>
+<div class="w-full md:w-1/2 p-8 md:p-16 space-y-6">
+<span class="text-primary font-bold uppercase tracking-widest text-sm" style="">Visual Assets • 2026</span>
+<h3 class="text-4xl md:text-5xl font-black font-headline uppercase leading-none" style="">Twitch pack for 1drappier</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed" style="">Пак оформления для Twitch-канала: баннер и уникальные кнопки.</p>
+</div>
+</div>
+<!-- Presentation -->
+<div class="flex flex-col md:flex-row-reverse gap-12 items-center bg-surface-container-high rounded-xl overflow-hidden hover:bg-surface-container-highest transition-colors duration-300">
+<div class="w-full md:w-1/2 h-80 md:h-[500px]">
+<img alt="RE:BOX Sustainable Packaging Presentation" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uivpxSDrmADd5g3LDnZ-A5zhJCm04ca2mV4EaWtU642k_EO7BWaIsDUgX1AP6gtfXJPz9n8Y-xnEynBNqbeWFKqmaSYZnJR59HTXhrFqRkUUWvGg9xvvqRLyQwKwlRfivOzYFPGtJ-CgIycgxnPF7NktKP4kCJg7PEX_PNGzXB2VO0xJE9ooR-f2_1O3StS-0X3krZZWuuPyOMP3z2cBaQA1YVBZBgUFKsIo3U7VJsDeflvfNmY5OLDxY4XioINvLg0OZ9aJAry" style="">
+</div>
+<div class="w-full md:w-1/2 p-8 md:p-16 space-y-6 text-right md:text-left">
+<span class="text-primary font-bold uppercase tracking-widest text-sm" style="">Presentation • 2026</span>
+<h3 class="text-4xl md:text-5xl font-black font-headline uppercase leading-none" style="">RE:BOX SUSTAINABLE PACKAGING</h3>
+<p class="text-on-surface-variant text-lg leading-relaxed" style="">Разработка многостраничной презентации для эко-бренда RE:BOX. Акцент на минимализме, функциональности и визуализации устойчивых решений.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Experience Section -->
+<section class="py-32 bg-surface-container-low" id="experience">
+<div class="max-w-4xl mx-auto px-8">
+<h2 class="text-4xl md:text-6xl font-black font-headline uppercase mb-20 text-center" style="">Опыт работы</h2>
+<div class="space-y-12">
+<div class="flex flex-col md:flex-row gap-4 md:gap-16 border-b border-outline-variant/30 pb-12">
+<span class="text-primary font-bold text-xl font-space-grotesk min-w-[150px]" style="">2025 (4 мес.)</span>
+<div class="flex-1">
+<h3 class="text-2xl font-bold uppercase mb-2" style="">Graphic Designer NIS (via BeyimTech)</h3>
+<p class="text-on-surface-variant" style="">Удаленная проектная работа для Назарбаев Интеллектуальной Школы. Разработка образовательной графики и визуальных материалов.</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-4 md:gap-16 border-b border-outline-variant/30 pb-12">
+<span class="text-primary font-bold text-xl font-space-grotesk min-w-[150px]" style="">2020 — 2025</span>
+<div class="flex-1">
+<h3 class="text-2xl font-bold uppercase mb-2" style="">Freelance Designer</h3>
+<p class="text-on-surface-variant" style="">Сотрудничество с различными блогерами и стримерами. Создание более 200 единиц контента для социальных сетей.</p>
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-4 md:gap-16">
+<span class="text-primary font-bold text-xl font-space-grotesk min-w-[150px]" style="">До 2020</span>
+<div class="flex-1">
+<h3 class="text-2xl font-bold uppercase mb-2" style="">School Period (Hobby)</h3>
+<p class="text-on-surface-variant" style="">Начало изучения основ графического дизайна и инструментов Photoshop для личных проектов.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Testimonials Section -->
+<section class="py-32">
+<div class="max-w-7xl mx-auto px-8 overflow-hidden">
+<h2 class="text-center text-sm font-bold uppercase tracking-[0.5em] text-primary mb-16" style="">Отзывы заказчиков</h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="p-10 bg-surface-container-high rounded-xl flex flex-col justify-between h-full hover:translate-y-[-10px] transition-transform duration-300">
+<p class="text-lg italic font-light mb-8" style="">"Работали над оформлением группы, все сделано в срок и очень качественно. Инфографика просто на высоте!"</p>
+<div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span class="material-symbols-outlined" style="">person</span></div>
+<div>
+<p class="font-bold uppercase text-primary tracking-tighter" style="">Анна</p>
+<p class="text-xs text-on-surface-variant uppercase" style="">Блогер</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-10 bg-surface-container-high rounded-xl flex flex-col justify-between h-full hover:translate-y-[-10px] transition-transform duration-300">
+<p class="text-lg italic font-light mb-8" style="">"мясо ваще! очень круто"</p>
+<div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span class="material-symbols-outlined" style="">person</span></div>
+<div>
+<p class="font-bold uppercase text-primary tracking-tighter" style="">1drappier</p>
+<p class="text-xs text-on-surface-variant uppercase" style="">Streamer</p>
+</div>
+</div>
+</div>
+</div>
+<div class="p-10 bg-surface-container-high rounded-xl flex flex-col justify-between h-full hover:translate-y-[-10px] transition-transform duration-300">
+<p class="text-lg italic font-light mb-8" style="">"Профессионал своего дела. Понял задачу с полуслова и выдал результат, который не пришлось править."</p>
+<div>
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary"><span class="material-symbols-outlined" style="">person</span></div>
+<div>
+<p class="font-bold uppercase text-primary tracking-tighter" style="">Елена</p>
+<p class="text-xs text-on-surface-variant uppercase" style="">Manager, EduProject</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- FAQ Section -->
+<section class="py-32 bg-surface-container-lowest" id="faq">
+<div class="max-w-3xl mx-auto px-8">
+<h2 class="text-4xl font-black font-headline uppercase mb-16 text-center" style="">FAQ</h2>
+<div class="space-y-4">
+<div class="group border-b border-outline-variant/30 pb-6">
+<div class="flex justify-between items-center cursor-pointer py-4">
+<h3 class="text-xl font-bold uppercase tracking-tighter font-space-grotesk" style="">Сколько времени занимает проект?</h3>
+<span class="material-symbols-outlined text-primary transition-transform duration-500 group-hover:rotate-45" style="">add</span>
+</div>
+<div class="max-h-0 opacity-0 overflow-hidden group-hover:max-h-52 group-hover:opacity-100 transition-all duration-500 ease-in-out pt-0 group-hover:pt-4 text-on-surface-variant leading-relaxed" style="">
+                    Сроки зависят от объема. Оформление карусели/поста — 1-2 дня. Полный пак для стрима — от 5 до 10 дней.
+                </div>
+</div>
+<div class="group border-b border-outline-variant/30 pb-6">
+<div class="flex justify-between items-center cursor-pointer py-4">
+<h3 class="text-xl font-bold uppercase tracking-tighter font-space-grotesk" style="">Как происходит оплата?</h3>
+<span class="material-symbols-outlined text-primary transition-transform duration-500 group-hover:rotate-45" style="">add</span>
+</div>
+<div class="max-h-0 opacity-0 overflow-hidden group-hover:max-h-52 group-hover:opacity-100 transition-all duration-500 ease-in-out pt-0 group-hover:pt-4 text-on-surface-variant leading-relaxed" style="">
+                    Обычно я работаю по предоплате 50% после утверждения концепции. Оставшаяся часть — перед отправкой исходников без водяных знаков.
+                </div>
+</div>
+<div class="group border-b border-outline-variant/30 pb-6">
+<div class="flex justify-between items-center cursor-pointer py-4">
+<h3 class="text-xl font-bold uppercase tracking-tighter font-space-grotesk" style="">В каких форматах я получу файлы?</h3>
+<span class="material-symbols-outlined text-primary transition-transform duration-500 group-hover:rotate-45" style="">add</span>
+</div>
+<div class="max-h-0 opacity-0 overflow-hidden group-hover:max-h-52 group-hover:opacity-100 transition-all duration-500 ease-in-out pt-0 group-hover:pt-4 text-on-surface-variant leading-relaxed" style="">
+                    Я предоставляю готовые PNG/JPG/WEBP файлы, а также исходники в формате Figma или PSD, в зависимости от проекта.
+                </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact / Marquee Footer Section -->
+<section id="orderSection" class="relative pt-48 pb-24 overflow-hidden">
+<div class="absolute inset-0 z-0 animated-gradient opacity-30 blur-3xl rounded-full scale-125 translate-y-[10%]"></div>
+<!-- Marquee -->
+<div class="absolute top-0 left-0 w-full bg-primary py-4 overflow-hidden whitespace-nowrap z-10">
+<div class="flex animate-marquee text-on-primary-container font-black font-headline text-3xl uppercase tracking-widest gap-20">
+<span class="" style="">Связаться со мной • Связаться со мной • Связаться со мной • Связаться со мной • Связаться со мной • Связаться со мной • </span>
+<span class="" style="">Связаться со мной • Связаться со мной • Связаться со мной • Связаться со мной • Связаться со мной • Связаться со мной • </span>
+</div>
+</div>
+<div class="max-w-4xl mx-auto px-6 md:px-8 relative z-20 mt-12">
+<h2 class="text-5xl sm:text-6xl md:text-8xl font-black font-headline uppercase leading-none mb-10 md:mb-16 text-center" style="">Готовы сделать <span class="text-primary" style="">заказ?</span></h2>
+<form id="orderForm" class="space-y-8 md:space-y-12">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+<div class="relative">
+<input id="nameInput" class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-4 px-0 focus:ring-0 focus:border-primary text-xl transition-colors placeholder:text-slate-600" placeholder="Имя / Nick" type="text" required>
+</div>
+<div class="relative">
+<input id="telegramInput" class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-4 px-0 focus:ring-0 focus:border-primary text-xl transition-colors placeholder:text-slate-600" placeholder="Telegram для связи" type="text">
+</div>
+</div>
+<div class="relative">
+<textarea id="descriptionInput" class="w-full bg-transparent border-0 border-b border-outline-variant/40 py-4 px-0 focus:ring-0 focus:border-primary text-xl transition-colors placeholder:text-slate-600" placeholder="Опишите ваш заказ" rows="4" required></textarea>
+</div>
+<div class="text-center">
+<button id="submitBtn" class="w-full sm:w-auto bg-primary-container text-on-primary-container px-10 sm:px-16 py-5 sm:py-6 rounded-full text-xl sm:text-2xl font-black font-headline uppercase tracking-widest hover:scale-105 transition-transform shadow-lg shadow-primary/20" type="submit" style="">
+                    Отправить
+                </button>
+</div>
+<div id="formStatus" class="text-center text-lg mt-4 hidden font-bold"></div>
+</form>
+
+<script>
+document.getElementById('orderForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const submitBtn = document.getElementById('submitBtn');
+    const formStatus = document.getElementById('formStatus');
+    const name = document.getElementById('nameInput').value;
+    const telegram = document.getElementById('telegramInput').value;
+    const description = document.getElementById('descriptionInput').value;
+
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Отправка...';
+    submitBtn.classList.add('opacity-50');
+    formStatus.classList.add('hidden');
+
+    try {
+        const res = await fetch('/api/orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, telegram, description })
+        });
+        
+        if (res.ok) {
+            formStatus.innerText = '✅ Ваша заявка успешно отправлена!';
+            formStatus.classList.remove('hidden', 'text-error');
+            formStatus.classList.add('text-primary');
+            submitBtn.innerText = 'Успешно!';
+            document.getElementById('orderForm').reset();
+        } else {
+            throw new Error('Server error');
+        }
+    } catch (err) {
+        formStatus.innerText = '❌ Ошибка при отправке. Попробуйте напрямую через Telegram.';
+        formStatus.classList.remove('hidden', 'text-primary');
+        formStatus.classList.add('text-[#ffb4ab]'); // using error token color
+        submitBtn.innerText = 'Отправить';
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-50');
+    }
+});
+</script>
+</div>
+</section>
+</main>
+<footer class="w-full rounded-t-[1.5rem] mt-24 bg-slate-950 relative">
+<a href="#" class="absolute top-10 right-8 md:top-12 md:right-12 w-16 h-16 bg-primary/10 hover:bg-primary text-primary hover:text-on-primary-container rounded-2xl flex items-center justify-center transition-all duration-300 z-10 hover:-translate-y-2" title="Наверх">
+    <span class="material-symbols-outlined text-3xl">arrow_upward</span>
+</a>
+<div class="flex flex-col items-center gap-8 py-12 px-6 w-full">
+<div class="text-xl font-bold text-slate-100 uppercase tracking-widest font-space-grotesk" style="">Дизайн в рамке</div>
+<div class="flex gap-10">
+<a class="text-slate-400 hover:text-violet-400 transition-colors font-manrope text-sm ease-in-out duration-300" href="https://t.me/framedesignx" target="_blank" style="">Telegram Канал</a>
+</div>
+<p class="text-slate-500 font-manrope text-sm" style="">© 2026 Дизайн в рамке. Все права защищены.</p>
+</div>
+</footer>
+</body></html>
