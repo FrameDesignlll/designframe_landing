@@ -94,11 +94,23 @@
         }
         
         .animated-gradient {
-            background: linear-gradient(270deg, #3808dd, #a078ff, #6d3bd7);
-            background-size: 600% 600%;
-            animation: gradientShift 15s ease infinite;
+            background: linear-gradient(180deg, #6d3bd7 0%, #a078ff 40%, #d0bcff 70%, #3808dd 100%);
+            background-size: 100% 200%;
+            animation: flameWave 3s ease-in-out infinite;
             position: relative;
             overflow: hidden;
+        }
+
+        @keyframes flameWave {
+            0%, 100% { background-position: 0% 0%; }
+            50% { background-position: 0% 30%; }
+        }
+
+        @keyframes flameFlicker {
+            0%, 100% { opacity: 0.6; transform: scaleY(1) translateY(0); }
+            25% { opacity: 0.5; transform: scaleY(1.05) translateY(-2px); }
+            50% { opacity: 0.7; transform: scaleY(0.98) translateY(1px); }
+            75% { opacity: 0.55; transform: scaleY(1.02) translateY(-1px); }
         }
         
         .animated-gradient::before {
@@ -163,7 +175,7 @@
 <main class="pt-20">
 <!-- Hero Section -->
 <section class="relative min-h-[600px] md:min-h-[921px] flex flex-col items-center justify-start md:justify-center text-center px-6 overflow-hidden pt-24 md:pt-0">
-<div class="absolute inset-0 z-0 animated-gradient opacity-40 blur-3xl rounded-full scale-150 translate-y-[0%]"></div>
+<div class="absolute inset-0 z-0 animated-gradient opacity-60 blur-3xl rounded-full scale-150 translate-y-[0%]" style="animation: flameFlicker 2s ease-in-out infinite;"></div>
 <div class="relative z-10 max-w-5xl">
 <h1 class="text-5xl sm:text-6xl md:text-[8rem] font-black font-headline leading-[0.9] tracking-tighter mb-8 uppercase" style="">
             ДИЗАЙН <br> <span class="text-primary" style="">В РАМКЕ</span>
