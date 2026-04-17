@@ -94,10 +94,11 @@
         }
         
         .animated-gradient {
-            background: linear-gradient(to top, #3808dd 0%, #6d3bd7 30%, #a078ff 60%, #d0bcff 100%);
+            background: linear-gradient(270deg, #3808dd, #a078ff, #6d3bd7);
+            background-size: 600% 600%;
+            animation: gradientShift 15s ease infinite;
             position: relative;
             overflow: hidden;
-            clip-path: polygon(20% 100%, 0% 60%, 30% 40%, 15% 20%, 50% 0%, 85% 20%, 70% 40%, 100% 60%, 80% 100%);
         }
 
         .animated-gradient::before {
@@ -105,14 +106,15 @@
             position: absolute;
             top: -50%; left: -50%;
             width: 200%; height: 200%;
-            background: linear-gradient(to top, #3808dd 0%, #a078ff 50%, transparent 100%);
-            opacity: 0.8;
-            animation: flameRise 4s ease-in-out infinite;
+            background: transparent url('https://grainy-gradients.vercel.app/noise.svg') repeat;
+            opacity: 0.15;
+            pointer-events: none;
         }
 
-        @keyframes flameRise {
-            0%, 100% { transform: translateY(0%) scale(1); }
-            50% { transform: translateY(-2%) scale(1.02); }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50% }
+            50% { background-position: 100% 50% }
+            100% { background-position: 0% 50% }
         }
         
         .animated-gradient::before {
@@ -177,7 +179,7 @@
 <main class="pt-20">
 <!-- Hero Section -->
 <section class="relative min-h-[600px] md:min-h-[921px] flex flex-col items-center justify-start md:justify-center text-center px-6 overflow-hidden pt-24 md:pt-0">
-<div class="absolute inset-0 z-0 animated-gradient opacity-60 blur-3xl rounded-full scale-150 translate-y-[0%]"></div>
+<div class="absolute inset-0 z-0 animated-gradient opacity-40 blur-3xl rounded-full scale-110 translate-y-[-20%]"></div>
 <div class="relative z-10 max-w-5xl">
 <h1 class="text-5xl sm:text-6xl md:text-[8rem] font-black font-headline leading-[0.9] tracking-tighter mb-8 uppercase" style="">
             ДИЗАЙН <br> <span class="text-primary" style="">В РАМКЕ</span>
