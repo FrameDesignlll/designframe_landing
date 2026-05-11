@@ -581,14 +581,20 @@
 
     .main-poster {
       position: absolute;
-      z-index: 2;
-      left: 50%;
-      bottom: 26px;
-      width: min(56%, 320px);
+      z-index: 5;
+      left: 51%;
+      bottom: 98px;
+      width: min(52%, 360px);
       border-radius: 24px;
       border: 1px solid rgba(255, 255, 255, 0.22);
       box-shadow: 0 30px 90px rgba(0, 0, 0, 0.5), 0 0 48px rgba(146, 91, 255, 0.4);
-      transform: translateX(-50%);
+      transform: translate3d(calc(-50% + var(--parallax-x, 0px) * -0.2), calc(var(--parallax-y, 0px) * -0.18), 58px);
+      transition: transform 160ms ease-out, box-shadow 220ms ease;
+      will-change: transform;
+    }
+
+    .showcase:hover .main-poster {
+      box-shadow: 0 34px 110px rgba(0, 0, 0, 0.58), 0 0 58px rgba(146, 91, 255, 0.48);
     }
 
     .float-card {
@@ -611,7 +617,7 @@
     }
 
     .float-card--left {
-      z-index: 5;
+      z-index: 6;
       left: 0;
       bottom: 78px;
       width: 210px;
@@ -620,7 +626,7 @@
     }
 
     .float-card--right {
-      z-index: 6;
+      z-index: 7;
       right: 0;
       top: 88px;
       width: 238px;
@@ -1017,15 +1023,6 @@
         linear-gradient(180deg, rgba(18, 13, 34, 0.92), rgba(9, 8, 18, 0.92));
     }
 
-    .feature-panel::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border: 1px solid rgba(201, 168, 255, 0.08);
-      border-radius: 22px;
-      pointer-events: none;
-    }
-
     .feature-panel__layout {
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1fr);
@@ -1060,18 +1057,6 @@
         linear-gradient(135deg, rgba(201, 168, 255, 0.09), rgba(146, 91, 255, 0.035)),
         rgba(255, 255, 255, 0.035);
       transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
-    }
-
-    .feature-card::before {
-      content: "";
-      position: absolute;
-      right: 18px;
-      top: 18px;
-      width: 38px;
-      height: 26px;
-      border: 1px solid rgba(201, 168, 255, 0.18);
-      border-radius: 8px;
-      opacity: 0.54;
     }
 
     .feature-card:hover {
@@ -1686,9 +1671,9 @@
               <small>Frame Design Studio</small>
             </div>
             <div class="browser__content">
-              <img class="main-poster" src="poster.png" alt="Постер Twitch Design Pack" />
             </div>
           </div>
+          <img class="main-poster" src="poster.png" alt="Постер Twitch Design Pack" />
           <div class="float-card float-card--left">
             <img src="grid.png" alt="Сетка визуальных материалов" />
           </div>
