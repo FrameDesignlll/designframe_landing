@@ -793,82 +793,77 @@
       border: 1px solid var(--line);
       border-radius: 30px;
       background:
-        radial-gradient(circle at 75% 18%, rgba(146, 91, 255, 0.42), transparent 28%),
+        radial-gradient(circle at 90% 8%, rgba(146, 91, 255, 0.34), transparent 28%),
         linear-gradient(180deg, rgba(18, 13, 34, 0.92), rgba(9, 8, 18, 0.92));
     }
 
+    .feature-panel__layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1fr);
+      gap: 44px;
+      align-items: start;
+    }
+
     .feature-panel h2 {
-      max-width: 720px;
+      max-width: 620px;
     }
 
     .feature-list {
       display: grid;
-      gap: 13px;
-      margin-top: 32px;
-      max-width: 720px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 0;
+      max-width: none;
     }
 
-    .feature-list span {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      color: var(--muted);
+    .feature-card {
+      min-height: 150px;
+      padding: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .feature-card span {
+      display: block;
+      color: var(--text);
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 21px;
       font-weight: 700;
+      line-height: 1.14;
     }
 
-    .feature-list span::before {
-      content: "";
-      width: 10px;
-      height: 10px;
-      border-radius: 999px;
-      background: var(--violet);
-      box-shadow: 0 0 16px var(--violet);
+    .feature-card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
     }
 
-    .feature-panel img {
-      position: absolute;
-      right: -70px;
-      bottom: -72px;
-      width: min(430px, 62%);
-      border: 1px solid var(--line-strong);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      transform: rotate(-5deg);
-    }
-
-    .visual-board {
-      position: relative;
-      right: auto;
-      bottom: auto;
+    .proof-strip {
       display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1.1fr 0.9fr 0.9fr;
       gap: 12px;
-      width: min(100%, 760px);
-      margin: 42px auto 0;
-      aspect-ratio: 1.15;
-      padding: 14px;
-      border: 1px solid var(--line-strong);
-      border-radius: 26px;
-      background: rgba(6, 5, 13, 0.62);
-      box-shadow: var(--shadow);
-      transform: none;
+      margin-top: 34px;
     }
 
-    .visual-board img {
-      position: static;
+    .proof-strip img {
       width: 100%;
-      height: 100%;
+      height: 170px;
       object-fit: cover;
       border: 1px solid rgba(255, 255, 255, 0.12);
       border-radius: 18px;
-      box-shadow: none;
-      transform: none;
+      opacity: 0.86;
     }
 
-    .visual-board img:first-child {
-      grid-row: span 2;
+    .proof-strip img:first-child {
+      height: 210px;
+      object-position: center top;
+    }
+
+    .proof-strip img:nth-child(2),
+    .proof-strip img:nth-child(3) {
+      margin-top: 40px;
     }
 
     .faq-grid {
@@ -1037,9 +1032,14 @@
       .hero__grid,
       .section-head,
       .process,
+      .feature-panel__layout,
       .faq-grid,
       .order-card {
         grid-template-columns: 1fr;
+      }
+
+      .feature-list {
+        margin-top: 12px;
       }
 
       .showcase {
@@ -1173,30 +1173,18 @@
         grid-template-columns: 1fr;
       }
 
-      .feature-panel img {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        width: 100%;
-        margin-top: 28px;
-        transform: none;
+      .feature-panel__layout,
+      .feature-list,
+      .proof-strip {
+        grid-template-columns: 1fr;
       }
 
-      .visual-board {
-        position: relative;
-        right: auto;
-        bottom: auto;
-        width: 100%;
-        margin-top: 28px;
-        transform: none;
-      }
-
-      .visual-board img {
-        position: static;
-        width: 100%;
-        height: 100%;
-        margin: 0;
-        transform: none;
+      .proof-strip img,
+      .proof-strip img:first-child,
+      .proof-strip img:nth-child(2),
+      .proof-strip img:nth-child(3) {
+        height: auto;
+        margin-top: 0;
       }
 
       .footer__inner {
@@ -1389,15 +1377,32 @@
     <section>
       <div class="shell split">
         <div class="feature-panel">
-          <div class="eyebrow">Преимущество</div>
-          <h2>Каждый макет работает как часть сильной визуальной системы</h2>
-          <div class="feature-list">
-            <span>единая цветовая атмосфера</span>
-            <span>аккуратная работа с текстом</span>
-            <span>адаптация под мобильный и десктоп</span>
-            <span>эффектная подача без визуального шума</span>
+          <div class="feature-panel__layout">
+            <div>
+              <div class="eyebrow">Преимущество</div>
+              <h2>Визуал собирается вокруг цели проекта</h2>
+              <p class="section-copy">Я не делаю макет ради эффекта. Сначала выстраиваю смысл, затем подбираю композицию, свет, цвет и формат под площадку, где дизайн будет работать.</p>
+            </div>
+            <div class="feature-list">
+              <article class="feature-card">
+                <span>Смысл до декора</span>
+                <p>Главный акцент сразу показывает, что человек должен понять или сделать после просмотра.</p>
+              </article>
+              <article class="feature-card">
+                <span>Единый стиль</span>
+                <p>Баннеры, карточки и презентации выглядят как часть одной системы, а не набор разных макетов.</p>
+              </article>
+              <article class="feature-card">
+                <span>Читаемый текст</span>
+                <p>Типографика остается понятной на телефоне, в Telegram, на Twitch и в презентации.</p>
+              </article>
+              <article class="feature-card">
+                <span>Форматы без боли</span>
+                <p>Готовлю визуал под нужные размеры, чтобы его можно было сразу использовать.</p>
+              </article>
+            </div>
           </div>
-          <div class="visual-board" aria-label="Коллаж актуальных работ">
+          <div class="proof-strip" aria-label="Примеры актуальных работ">
             <img src="poster.png" alt="Twitch Design Pack" />
             <img src="grid.png" alt="Контент-сетка" />
             <img src="A3.png" alt="Презентация re:box" />
