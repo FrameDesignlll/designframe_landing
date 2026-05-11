@@ -35,6 +35,7 @@
 
     html {
       background: var(--bg);
+      scroll-behavior: smooth;
     }
 
     body {
@@ -130,6 +131,7 @@
     }
 
     .brand__mark {
+      position: relative;
       display: grid;
       place-items: center;
       width: 32px;
@@ -141,8 +143,23 @@
     }
 
     .brand__mark svg {
-      width: 18px;
-      height: 18px;
+      display: none;
+    }
+
+    .brand__mark::before,
+    .brand__mark::after {
+      content: "";
+      position: absolute;
+      inset: 8px;
+      border: 2px solid rgba(255, 255, 255, 0.95);
+      border-radius: 2px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.18);
+    }
+
+    .brand__mark::after {
+      inset: 11px;
+      background: rgba(255, 255, 255, 0.38);
+      border-width: 0;
     }
 
     .nav__links {
@@ -811,10 +828,40 @@
     }
 
     .process {
+      position: relative;
       display: grid;
       grid-template-columns: 0.72fr 1fr;
       gap: 34px;
       align-items: stretch;
+      z-index: 1;
+    }
+
+    #process {
+      overflow: hidden;
+    }
+
+    #process::after {
+      content: "";
+      position: absolute;
+      left: 6%;
+      right: 6%;
+      bottom: 22px;
+      height: 160px;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse at 22% 100%, rgba(201, 168, 255, 0.14), transparent 58%),
+        radial-gradient(ellipse at 72% 100%, rgba(146, 91, 255, 0.16), transparent 56%),
+        linear-gradient(0deg, rgba(146, 91, 255, 0.1), transparent 72%);
+      filter: blur(24px);
+      opacity: 0.85;
+      transform: translateY(36px);
+      animation: processMist 9s ease-in-out infinite alternate;
+    }
+
+    @keyframes processMist {
+      from { opacity: 0.45; transform: translate3d(-18px, 44px, 0) scaleX(0.96); }
+      to { opacity: 0.92; transform: translate3d(18px, 28px, 0) scaleX(1.04); }
     }
 
     .process__sticky {
@@ -856,6 +903,8 @@
     }
 
     .step__num {
+      position: relative;
+      z-index: 1;
       display: grid;
       place-items: center;
       width: 52px;
@@ -867,6 +916,30 @@
       font-family: "Space Grotesk", sans-serif;
       font-size: 20px;
       font-weight: 700;
+    }
+
+    .step:first-child .step__num {
+      background: linear-gradient(135deg, rgba(201, 168, 255, 0.34), rgba(146, 91, 255, 0.42));
+      box-shadow:
+        0 0 0 1px rgba(201, 168, 255, 0.12),
+        0 0 34px rgba(146, 91, 255, 0.5),
+        0 0 70px rgba(146, 91, 255, 0.28);
+    }
+
+    .step:first-child .step__num::before {
+      content: "";
+      position: absolute;
+      inset: -16px;
+      z-index: -1;
+      border-radius: 24px;
+      background: radial-gradient(circle, rgba(146, 91, 255, 0.38), transparent 68%);
+      filter: blur(4px);
+      animation: stepPulse 3.8s ease-in-out infinite alternate;
+    }
+
+    @keyframes stepPulse {
+      from { opacity: 0.45; transform: scale(0.92); }
+      to { opacity: 0.95; transform: scale(1.08); }
     }
 
     .step h3 {
@@ -918,6 +991,15 @@
         linear-gradient(180deg, rgba(18, 13, 34, 0.92), rgba(9, 8, 18, 0.92));
     }
 
+    .feature-panel::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(201, 168, 255, 0.08);
+      border-radius: 22px;
+      pointer-events: none;
+    }
+
     .feature-panel__layout {
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1fr);
@@ -929,6 +1011,10 @@
       max-width: 620px;
     }
 
+    .feature-panel .section-copy {
+      margin-top: 28px;
+    }
+
     .feature-list {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -938,11 +1024,36 @@
     }
 
     .feature-card {
+      position: relative;
+      overflow: hidden;
       min-height: 150px;
       padding: 20px;
       border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: 20px;
-      background: rgba(255, 255, 255, 0.035);
+      background:
+        linear-gradient(135deg, rgba(201, 168, 255, 0.09), rgba(146, 91, 255, 0.035)),
+        rgba(255, 255, 255, 0.035);
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    .feature-card::before {
+      content: "";
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      width: 38px;
+      height: 26px;
+      border: 1px solid rgba(201, 168, 255, 0.18);
+      border-radius: 8px;
+      opacity: 0.54;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201, 168, 255, 0.24);
+      background:
+        linear-gradient(135deg, rgba(201, 168, 255, 0.13), rgba(146, 91, 255, 0.06)),
+        rgba(255, 255, 255, 0.045);
     }
 
     .feature-card span {
@@ -971,6 +1082,8 @@
     .faq-list {
       display: grid;
       gap: 12px;
+      min-height: 344px;
+      align-content: start;
     }
 
     .faq-item {
@@ -1004,7 +1117,7 @@
 
     .faq-item:hover p,
     .faq-item:focus-within p {
-      max-height: 220px;
+      max-height: 168px;
       opacity: 1;
       padding-bottom: 22px;
     }
@@ -1179,6 +1292,10 @@
       gap: 14px;
     }
 
+    .order-card form {
+      padding-top: 44px;
+    }
+
     .field {
       display: grid;
       gap: 8px;
@@ -1286,7 +1403,7 @@
     @media (max-width: 680px) {
       .shell,
       .nav__inner {
-        width: min(100% - 24px, 1180px);
+        width: min(100% - 28px, 1180px);
       }
 
       .nav {
@@ -1299,43 +1416,60 @@
 
       .nav__inner {
         gap: 10px;
-        padding: 8px 10px;
+        padding: 7px 9px;
       }
 
       .brand {
-        gap: 8px;
+        gap: 9px;
         padding-left: 0;
-        font-size: 14px;
+        font-size: 13px;
       }
 
       .brand__mark {
-        width: 30px;
-        height: 30px;
+        width: 28px;
+        height: 28px;
+        flex-basis: 28px;
         border-radius: 9px;
       }
 
+      .brand__mark::before {
+        inset: 7px;
+        border-width: 2px;
+      }
+
+      .brand__mark::after {
+        inset: 10px;
+      }
+
       .nav .btn {
-        min-height: 40px;
-        padding: 0 14px;
-        font-size: 14px;
+        min-height: 38px;
+        padding: 0 13px;
+        font-size: 13px;
       }
 
       .hero {
         min-height: auto;
-        padding: 108px 0 58px;
+        padding: 98px 0 52px;
       }
 
       .hero__grid {
         gap: 30px;
       }
 
-      h1,
+      h1 {
+        font-size: clamp(30px, 8.2vw, 38px);
+        line-height: 1.08;
+      }
+
       h2 {
-        font-size: clamp(32px, 9.6vw, 44px);
+        font-size: clamp(30px, 8vw, 38px);
+        line-height: 1.08;
       }
 
       .lead {
-        font-size: 15px;
+        max-width: 94%;
+        font-size: 14px;
+        line-height: 1.62;
       }
 
       .hero__actions {
@@ -1348,11 +1482,11 @@
       }
 
       .showcase {
-        min-height: 360px;
+        min-height: 320px;
       }
 
       .browser {
-        inset: 36px 0 42px;
+        inset: 30px 0 34px;
         border-radius: 22px;
         transform: none;
       }
@@ -1362,18 +1496,18 @@
       }
 
       .main-poster {
-        width: min(64%, 250px);
-        bottom: 20px;
+        width: min(58%, 220px);
+        bottom: 18px;
       }
 
       .float-card--left {
-        width: 122px;
-        bottom: 24px;
+        width: 108px;
+        bottom: 22px;
       }
 
       .float-card--right {
-        width: 132px;
-        top: 22px;
+        width: 116px;
+        top: 20px;
       }
 
       .floating-label {
@@ -1384,7 +1518,7 @@
       }
 
       section {
-        padding: 82px 0;
+        padding: 74px 0;
       }
 
       .work-card,
@@ -1406,7 +1540,15 @@
       }
 
       .order-card h2 {
-        font-size: clamp(32px, 10vw, 44px);
+        font-size: clamp(29px, 8vw, 36px);
+      }
+
+      .order-card form {
+        padding-top: 0;
+      }
+
+      .faq-list {
+        min-height: auto;
       }
 
       .work-card__meta {
@@ -1763,6 +1905,24 @@
     }
     textNodes.forEach((node) => {
       node.nodeValue = node.nodeValue.replace(shortWords, "$1$2\u00A0");
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach((link) => {
+      link.addEventListener("click", (event) => {
+        const targetId = link.getAttribute("href");
+        if (!targetId || targetId === "#") {
+          return;
+        }
+
+        const target = document.querySelector(targetId);
+        if (!target) {
+          return;
+        }
+
+        event.preventDefault();
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        history.pushState(null, "", targetId);
+      });
     });
 
     const orderForm = document.getElementById("orderForm");
