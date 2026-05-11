@@ -1087,13 +1087,14 @@
       display: grid;
       grid-template-columns: 0.72fr 1fr;
       gap: 44px;
-      align-items: center;
+      align-items: start;
     }
 
     .faq-list {
       display: grid;
       gap: 12px;
       min-height: 420px;
+      padding-top: 64px;
       align-content: start;
     }
 
@@ -1159,13 +1160,13 @@
 
     .faq-plus {
       position: relative;
-      width: 22px;
-      height: 22px;
-      flex: 0 0 22px;
-      border: 1px solid rgba(201, 168, 255, 0.7);
-      border-radius: 6px;
+      width: 15px;
+      height: 15px;
+      flex: 0 0 15px;
+      border: 1px solid rgba(201, 168, 255, 0.62);
+      border-radius: 4px;
       color: transparent;
-      box-shadow: 0 0 16px rgba(146, 91, 255, 0.24);
+      box-shadow: 0 0 10px rgba(146, 91, 255, 0.18);
       transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
     }
 
@@ -1173,7 +1174,7 @@
     .faq-item:focus-within .faq-plus {
       transform: rotate(45deg);
       border-color: rgba(201, 168, 255, 0.95);
-      box-shadow: 0 0 24px rgba(146, 91, 255, 0.46);
+      box-shadow: 0 0 16px rgba(146, 91, 255, 0.38);
     }
 
     .order {
@@ -1246,8 +1247,8 @@
 
     .back-to-top {
       position: absolute;
-      right: -58px;
-      bottom: -8px;
+      right: -64px;
+      bottom: 20px;
       display: grid;
       place-items: center;
       width: 46px;
@@ -1257,12 +1258,13 @@
       background: rgba(255, 255, 255, 0.055);
       color: var(--violet-soft);
       box-shadow: 0 0 28px rgba(146, 91, 255, 0.34), 0 0 70px rgba(146, 91, 255, 0.16);
-      animation: backTopGlow 3.8s ease-in-out infinite alternate;
+      animation: backTopBob 2.6s ease-in-out infinite, backTopGlow 3.8s ease-in-out infinite alternate;
       transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
 
     .back-to-top:hover {
-      transform: translateY(-4px);
+      animation: none;
+      transform: translateY(0);
       border-color: rgba(201, 168, 255, 0.54);
       background: rgba(146, 91, 255, 0.16);
       box-shadow: 0 0 34px rgba(146, 91, 255, 0.55), 0 0 90px rgba(146, 91, 255, 0.24);
@@ -1271,6 +1273,11 @@
     .back-to-top svg {
       width: 20px;
       height: 20px;
+    }
+
+    @keyframes backTopBob {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
     }
 
     @keyframes backTopGlow {
@@ -1580,6 +1587,7 @@
 
       .faq-list {
         min-height: auto;
+        padding-top: 0;
       }
 
       .work-card__meta {
@@ -1598,7 +1606,7 @@
       .back-to-top {
         right: 16px;
         top: auto;
-        bottom: -58px;
+        bottom: 16px;
         width: 40px;
         height: 40px;
       }
