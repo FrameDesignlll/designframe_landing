@@ -351,6 +351,14 @@
       position: relative;
       min-height: 600px;
       perspective: 1100px;
+      transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
+      transform-style: preserve-3d;
+      transition: transform 220ms ease, filter 220ms ease;
+      will-change: transform;
+    }
+
+    .showcase:hover {
+      filter: saturate(1.08);
     }
 
     .showcase::before {
@@ -517,6 +525,12 @@
       background: linear-gradient(180deg, rgba(25, 16, 45, 0.9), rgba(6, 5, 13, 0.96));
       box-shadow: var(--shadow);
       transform: rotateX(2deg) rotateY(-4deg);
+      transition: box-shadow 220ms ease, border-color 220ms ease;
+    }
+
+    .showcase:hover .browser {
+      border-color: rgba(201, 168, 255, 0.48);
+      box-shadow: 0 34px 100px rgba(46, 15, 130, 0.42), inset 0 0 0 1px rgba(255, 255, 255, 0.04);
     }
 
     .browser__bar {
@@ -1924,6 +1938,23 @@
         history.pushState(null, "", targetId);
       });
     });
+
+    const showcase = document.querySelector(".showcase");
+    const canTilt = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+    if (showcase && canTilt) {
+      showcase.addEventListener("mousemove", (event) => {
+        const rect = showcase.getBoundingClientRect();
+        const x = (event.clientX - rect.left) / rect.width - 0.5;
+        const y = (event.clientY - rect.top) / rect.height - 0.5;
+        showcase.style.setProperty("--tilt-x", `${(-y * 8).toFixed(2)}deg`);
+        showcase.style.setProperty("--tilt-y", `${(x * 10).toFixed(2)}deg`);
+      });
+
+      showcase.addEventListener("mouseleave", () => {
+        showcase.style.setProperty("--tilt-x", "0deg");
+        showcase.style.setProperty("--tilt-y", "0deg");
+      });
+    }
 
     const orderForm = document.getElementById("orderForm");
     const formStatus = document.getElementById("formStatus");
