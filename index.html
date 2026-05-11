@@ -1027,7 +1027,7 @@
       display: grid;
       grid-template-columns: minmax(0, 0.9fr) minmax(360px, 1fr);
       gap: 44px;
-      align-items: start;
+      align-items: center;
     }
 
     .feature-panel h2 {
@@ -1087,13 +1087,13 @@
       display: grid;
       grid-template-columns: 0.72fr 1fr;
       gap: 44px;
-      align-items: start;
+      align-items: center;
     }
 
     .faq-list {
       display: grid;
       gap: 12px;
-      min-height: 344px;
+      min-height: 420px;
       align-content: start;
     }
 
@@ -1158,15 +1158,22 @@
     }
 
     .faq-plus {
-      color: var(--violet-soft);
-      font-size: 28px;
-      line-height: 1;
-      transition: transform 220ms ease;
+      position: relative;
+      width: 22px;
+      height: 22px;
+      flex: 0 0 22px;
+      border: 1px solid rgba(201, 168, 255, 0.7);
+      border-radius: 6px;
+      color: transparent;
+      box-shadow: 0 0 16px rgba(146, 91, 255, 0.24);
+      transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
     }
 
     .faq-item:hover .faq-plus,
     .faq-item:focus-within .faq-plus {
       transform: rotate(45deg);
+      border-color: rgba(201, 168, 255, 0.95);
+      box-shadow: 0 0 24px rgba(146, 91, 255, 0.46);
     }
 
     .order {
@@ -1240,7 +1247,7 @@
     .back-to-top {
       position: absolute;
       right: -58px;
-      bottom: 24px;
+      bottom: -8px;
       display: grid;
       place-items: center;
       width: 46px;
@@ -1249,18 +1256,26 @@
       border-radius: 999px;
       background: rgba(255, 255, 255, 0.055);
       color: var(--violet-soft);
-      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+      box-shadow: 0 0 28px rgba(146, 91, 255, 0.34), 0 0 70px rgba(146, 91, 255, 0.16);
+      animation: backTopGlow 3.8s ease-in-out infinite alternate;
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
     }
 
     .back-to-top:hover {
       transform: translateY(-4px);
       border-color: rgba(201, 168, 255, 0.54);
       background: rgba(146, 91, 255, 0.16);
+      box-shadow: 0 0 34px rgba(146, 91, 255, 0.55), 0 0 90px rgba(146, 91, 255, 0.24);
     }
 
     .back-to-top svg {
       width: 20px;
       height: 20px;
+    }
+
+    @keyframes backTopGlow {
+      from { box-shadow: 0 0 22px rgba(146, 91, 255, 0.26), 0 0 52px rgba(146, 91, 255, 0.1); }
+      to { box-shadow: 0 0 34px rgba(146, 91, 255, 0.46), 0 0 82px rgba(146, 91, 255, 0.2); }
     }
 
     .order-card h2 {
@@ -1378,6 +1393,11 @@
       .faq-grid,
       .order-card {
         grid-template-columns: 1fr;
+      }
+
+      .feature-panel__layout,
+      .faq-grid {
+        align-items: start;
       }
 
       .feature-list {
@@ -1827,7 +1847,7 @@
       <div class="shell faq-grid">
         <div>
           <div class="eyebrow">FAQ</div>
-          <h2 class="motion-title">Перед заказом</h2>
+          <h2 class="motion-title">Перед<br>заказом</h2>
         </div>
         <div class="faq-list">
           <article class="faq-item">
@@ -1899,6 +1919,15 @@
   </footer>
 
   <script>
+    if ("scrollRestoration" in history) {
+      history.scrollRestoration = "manual";
+    }
+
+    window.addEventListener("load", () => {
+      if (!window.location.hash) {
+        window.scrollTo(0, 0);
+      }
+    });
     const shortWords = /(^|[\s(«„"'])(а|в|во|да|до|за|и|из|к|ко|на|не|о|об|от|по|с|со|у)\s+/giu;
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
