@@ -351,10 +351,8 @@
       position: relative;
       min-height: 600px;
       perspective: 1100px;
-      transform: rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg));
       transform-style: preserve-3d;
-      transition: transform 220ms ease, filter 220ms ease;
-      will-change: transform;
+      transition: filter 220ms ease;
     }
 
     .showcase:hover {
@@ -524,8 +522,13 @@
       border-radius: 28px;
       background: linear-gradient(180deg, rgba(25, 16, 45, 0.9), rgba(6, 5, 13, 0.96));
       box-shadow: var(--shadow);
-      transform: rotateX(2deg) rotateY(-4deg);
-      transition: box-shadow 220ms ease, border-color 220ms ease;
+      transform:
+        translate3d(calc(var(--tilt-y, 0deg) * 0.45), calc(var(--tilt-x, 0deg) * -0.28), 0)
+        rotateX(calc(2deg + var(--tilt-x, 0deg)))
+        rotateY(calc(-4deg + var(--tilt-y, 0deg)));
+      transform-style: preserve-3d;
+      transition: transform 160ms ease-out, box-shadow 220ms ease, border-color 220ms ease;
+      will-change: transform;
     }
 
     .showcase:hover .browser {
@@ -592,6 +595,8 @@
       background: rgba(12, 9, 24, 0.86);
       box-shadow: 0 24px 80px rgba(0, 0, 0, 0.45);
       backdrop-filter: blur(12px);
+      transition: transform 160ms ease-out;
+      will-change: transform;
     }
 
     .float-card img {
@@ -605,7 +610,7 @@
       bottom: 78px;
       width: 210px;
       aspect-ratio: 1;
-      transform: rotate(-9deg);
+      transform: translate3d(calc(var(--parallax-x, 0px) * -0.72), calc(var(--parallax-y, 0px) * -0.5), 46px) rotate(-9deg);
     }
 
     .float-card--right {
@@ -613,7 +618,7 @@
       top: 88px;
       width: 238px;
       aspect-ratio: 1.14;
-      transform: rotate(8deg);
+      transform: translate3d(calc(var(--parallax-x, 0px) * 0.58), calc(var(--parallax-y, 0px) * 0.42), 64px) rotate(8deg);
     }
 
     .floating-label {
@@ -1946,13 +1951,17 @@
         const rect = showcase.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width - 0.5;
         const y = (event.clientY - rect.top) / rect.height - 0.5;
-        showcase.style.setProperty("--tilt-x", `${(-y * 8).toFixed(2)}deg`);
-        showcase.style.setProperty("--tilt-y", `${(x * 10).toFixed(2)}deg`);
+        showcase.style.setProperty("--tilt-x", `${(-y * 14).toFixed(2)}deg`);
+        showcase.style.setProperty("--tilt-y", `${(x * 18).toFixed(2)}deg`);
+        showcase.style.setProperty("--parallax-x", `${(x * 42).toFixed(1)}px`);
+        showcase.style.setProperty("--parallax-y", `${(y * 36).toFixed(1)}px`);
       });
 
       showcase.addEventListener("mouseleave", () => {
         showcase.style.setProperty("--tilt-x", "0deg");
         showcase.style.setProperty("--tilt-y", "0deg");
+        showcase.style.setProperty("--parallax-x", "0px");
+        showcase.style.setProperty("--parallax-y", "0px");
       });
     }
 
