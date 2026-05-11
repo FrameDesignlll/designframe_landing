@@ -248,7 +248,7 @@
     }
 
     .eyebrow {
-      display: inline-flex;
+      display: flex;
       align-items: center;
       gap: 8px;
       width: fit-content;
@@ -291,6 +291,37 @@
     h2 {
       font-size: clamp(38px, 4vw, 58px);
       line-height: 1.04;
+    }
+
+    .motion-title {
+      position: relative;
+      display: block;
+      width: fit-content;
+      transition: color 220ms ease, transform 220ms ease, text-shadow 220ms ease;
+    }
+
+    .motion-title::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, var(--violet), var(--cyan), transparent);
+      box-shadow: 0 0 20px rgba(146, 91, 255, 0.54);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 260ms ease;
+    }
+
+    .motion-title:hover {
+      color: #fff;
+      transform: translateY(-3px);
+      text-shadow: 0 0 24px rgba(146, 91, 255, 0.24);
+    }
+
+    .motion-title:hover::after {
+      transform: scaleX(1);
     }
 
     .gradient-text {
@@ -607,7 +638,14 @@
       display: flex;
       gap: 12px;
       width: max-content;
-      animation: ticker 24s linear infinite;
+      animation: ticker 32s linear infinite;
+      will-change: transform;
+    }
+
+    .ticker__group {
+      display: flex;
+      gap: 12px;
+      min-width: max-content;
     }
 
     .ticker span {
@@ -796,9 +834,9 @@
 
     .process {
       display: grid;
-      grid-template-columns: 0.78fr 1fr;
-      gap: 48px;
-      align-items: start;
+      grid-template-columns: 0.72fr 1fr;
+      gap: 34px;
+      align-items: stretch;
     }
 
     .process__sticky {
@@ -812,29 +850,61 @@
 
     .steps {
       display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 14px;
     }
 
     .step {
-      display: grid;
-      grid-template-columns: 76px 1fr;
-      gap: 22px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      min-height: 280px;
       padding: 22px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: rgba(255, 255, 255, 0.035);
+      background:
+        radial-gradient(circle at 30% 0%, rgba(146, 91, 255, 0.16), transparent 38%),
+        rgba(255, 255, 255, 0.035);
+      overflow: hidden;
+      transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
+    }
+
+    .step::after {
+      content: "";
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      height: 1px;
+      background: linear-gradient(90deg, rgba(201, 168, 255, 0.72), transparent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 240ms ease;
+    }
+
+    .step:hover {
+      border-color: rgba(201, 168, 255, 0.36);
+      transform: translateY(-6px);
+      background:
+        radial-gradient(circle at 30% 0%, rgba(146, 91, 255, 0.24), transparent 42%),
+        rgba(255, 255, 255, 0.052);
+    }
+
+    .step:hover::after {
+      transform: scaleX(1);
     }
 
     .step__num {
       display: grid;
       place-items: center;
-      width: 58px;
-      height: 58px;
-      border-radius: 18px;
-      background: rgba(146, 91, 255, 0.12);
+      width: 52px;
+      height: 52px;
+      margin-bottom: 34px;
+      border-radius: 16px;
+      background: rgba(146, 91, 255, 0.16);
       color: var(--violet-soft);
       font-family: "Space Grotesk", sans-serif;
-      font-size: 22px;
+      font-size: 20px;
       font-weight: 700;
     }
 
@@ -846,6 +916,17 @@
       margin: 10px 0 0;
       color: var(--muted);
       line-height: 1.65;
+    }
+
+    .step small {
+      display: block;
+      margin-top: auto;
+      padding-top: 28px;
+      color: var(--muted-2);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .split {
@@ -941,8 +1022,26 @@
     }
 
     details {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      padding: 22px 0;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 18px;
+      padding: 0;
+      background: rgba(255, 255, 255, 0.035);
+      overflow: hidden;
+      transition: border-color 180ms ease, background 180ms ease, transform 180ms ease;
+    }
+
+    details:hover {
+      border-color: rgba(201, 168, 255, 0.28);
+      background: rgba(255, 255, 255, 0.052);
+      transform: translateY(-2px);
+    }
+
+    details[open] {
+      border-color: rgba(201, 168, 255, 0.25);
+      background:
+        radial-gradient(circle at 10% 0%, rgba(146, 91, 255, 0.15), transparent 42%),
+        rgba(255, 255, 255, 0.045);
     }
 
     summary {
@@ -950,12 +1049,19 @@
       align-items: center;
       justify-content: space-between;
       gap: 20px;
+      padding: 22px;
       color: var(--text);
       font-family: "Space Grotesk", sans-serif;
       font-size: 23px;
       font-weight: 700;
       cursor: pointer;
       list-style: none;
+      transition: color 180ms ease, padding-left 180ms ease;
+    }
+
+    summary:hover {
+      color: var(--violet-soft);
+      padding-left: 28px;
     }
 
     summary::-webkit-details-marker {
@@ -974,7 +1080,8 @@
 
     details p {
       max-width: 720px;
-      margin: 16px 0 0;
+      margin: 0;
+      padding: 0 22px 22px;
       color: var(--muted);
       line-height: 1.7;
     }
@@ -984,6 +1091,7 @@
     }
 
     .order-card {
+      position: relative;
       display: grid;
       grid-template-columns: 0.72fr 1fr;
       gap: 34px;
@@ -994,6 +1102,32 @@
         radial-gradient(circle at 18% 0%, rgba(146, 91, 255, 0.35), transparent 34%),
         rgba(8, 7, 18, 0.9);
       box-shadow: var(--shadow);
+    }
+
+    .back-to-top {
+      position: absolute;
+      right: 24px;
+      top: 24px;
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.055);
+      color: var(--violet-soft);
+      transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+    }
+
+    .back-to-top:hover {
+      transform: translateY(-4px);
+      border-color: rgba(201, 168, 255, 0.54);
+      background: rgba(146, 91, 255, 0.16);
+    }
+
+    .back-to-top svg {
+      width: 20px;
+      height: 20px;
     }
 
     .order-card h2 {
@@ -1109,6 +1243,14 @@
         margin-top: 12px;
       }
 
+      .steps {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        min-height: 0;
+      }
+
       .showcase {
         min-height: 580px;
       }
@@ -1139,16 +1281,35 @@
       }
 
       .brand span {
-        display: none;
+        display: inline;
       }
 
       .nav__inner {
-        padding: 8px;
+        gap: 10px;
+        padding: 8px 10px;
+      }
+
+      .brand {
+        gap: 8px;
+        padding-left: 0;
+        font-size: 14px;
+      }
+
+      .brand__mark {
+        width: 30px;
+        height: 30px;
+        border-radius: 9px;
+      }
+
+      .nav .btn {
+        min-height: 40px;
+        padding: 0 14px;
+        font-size: 14px;
       }
 
       .hero {
         min-height: auto;
-        padding: 118px 0 64px;
+        padding: 108px 0 58px;
       }
 
       .hero__grid {
@@ -1157,7 +1318,7 @@
 
       h1,
       h2 {
-        font-size: clamp(34px, 11vw, 48px);
+        font-size: clamp(32px, 9.6vw, 44px);
       }
 
       .lead {
@@ -1174,23 +1335,32 @@
       }
 
       .showcase {
-        min-height: 430px;
+        min-height: 360px;
       }
 
       .browser {
-        inset: 58px 0 62px;
+        inset: 36px 0 42px;
         border-radius: 22px;
         transform: none;
       }
 
+      .browser__content {
+        padding: 18px;
+      }
+
+      .main-poster {
+        width: min(64%, 250px);
+        bottom: 20px;
+      }
+
       .float-card--left {
-        width: 138px;
-        bottom: 38px;
+        width: 122px;
+        bottom: 24px;
       }
 
       .float-card--right {
-        width: 150px;
-        top: 54px;
+        width: 132px;
+        top: 22px;
       }
 
       .floating-label {
@@ -1213,6 +1383,15 @@
         min-height: 0;
       }
 
+      .ticker {
+        padding: 18px 0;
+      }
+
+      .ticker span {
+        padding: 8px 13px;
+        font-size: 13px;
+      }
+
       .order-card h2 {
         font-size: clamp(32px, 10vw, 44px);
       }
@@ -1228,6 +1407,13 @@
 
       .step {
         grid-template-columns: 1fr;
+      }
+
+      .back-to-top {
+        right: 16px;
+        top: 16px;
+        width: 40px;
+        height: 40px;
       }
 
       .feature-panel,
@@ -1342,8 +1528,12 @@
 
     <div class="ticker" aria-hidden="true">
       <div class="ticker__track">
-        <span>Twitch packs</span><span>Telegram covers</span><span>Posters</span><span>Social media</span><span>Presentations</span><span>Banners</span>
-        <span>Twitch packs</span><span>Telegram covers</span><span>Posters</span><span>Social media</span><span>Presentations</span><span>Banners</span>
+        <div class="ticker__group">
+          <span>Twitch packs</span><span>Instagram grid</span><span>Presentations</span><span>Stream banners</span><span>Telegram covers</span><span>Visual systems</span><span>Profile design</span><span>Content cards</span><span>Twitch panels</span><span>Brand visuals</span>
+        </div>
+        <div class="ticker__group">
+          <span>Twitch packs</span><span>Instagram grid</span><span>Presentations</span><span>Stream banners</span><span>Telegram covers</span><span>Visual systems</span><span>Profile design</span><span>Content cards</span><span>Twitch panels</span><span>Brand visuals</span>
+        </div>
       </div>
     </div>
 
@@ -1352,9 +1542,9 @@
         <div class="section-head">
           <div>
             <div class="eyebrow">Последние работы</div>
-            <h2>Проекты как витрина твоего уровня</h2>
+            <h2 class="motion-title">Работы, по которым сразу считывается стиль</h2>
           </div>
-          <p>Вместо случайной галереи — крупные карточки, где каждая работа выглядит как полноценный кейс. Такой формат лучше продает навык и стиль.</p>
+          <p>Здесь собраны разные форматы: оформление для стрима, Instagram grid и презентация продукта. По ним видно, как визуал работает в реальных задачах.</p>
         </div>
 
         <div class="works-grid">
@@ -1368,7 +1558,7 @@
           <a class="work-card" href="https://t.me/framedesignx" target="_blank" rel="noreferrer">
             <img src="public/grid.png" alt="Набор визуалов для соцсетей" />
             <div class="work-card__meta">
-              <div><small>Social pack</small><h3>Контент-сетка</h3></div>
+              <div><small>Social pack</small><h3>Instagram grid</h3></div>
               <span>Открыть</span>
             </div>
           </a>
@@ -1388,7 +1578,7 @@
         <div class="section-head">
           <div>
             <div class="eyebrow">Услуги</div>
-            <h2>Оформление под задачу, а не просто красивая картинка</h2>
+            <h2 class="motion-title">Оформление под задачу, а не просто красивая картинка</h2>
           </div>
           <p>Можно заказать отдельный баннер или собрать полный визуальный пакет для канала, профиля, стрима или презентации.</p>
         </div>
@@ -1423,21 +1613,21 @@
       <div class="shell process">
         <div class="process__sticky">
           <div class="eyebrow">Процесс</div>
-          <h2>Понятный путь от идеи до готового макета</h2>
-          <p class="section-copy">Я держу процесс коротким и прозрачным: сначала смысл и референсы, потом композиция, финальная полировка и передача файлов.</p>
+          <h2 class="motion-title">Как проходит работа</h2>
+          <p class="section-copy">Без туманных этапов: сначала фиксируем задачу, затем собираем направление и доводим макет до формата, который можно сразу использовать.</p>
         </div>
         <div class="steps">
           <article class="step">
             <div class="step__num">01</div>
-            <div><h3>Бриф и стиль</h3><p>Разбираем площадку, аудиторию, текст, примеры и настроение. Если референсов нет, помогаю подобрать направление.</p></div>
+            <div><h3>Задача</h3><p>Понимаю, где будет использоваться дизайн, какой текст нужен и что человек должен заметить первым.</p><small>Смысл</small></div>
           </article>
           <article class="step">
             <div class="step__num">02</div>
-            <div><h3>Черновая композиция</h3><p>Собираю структуру макета, показываю визуальную логику и согласовываю ключевые акценты.</p></div>
+            <div><h3>Направление</h3><p>Подбираю настроение, композицию, цвет и визуальные акценты под площадку и аудиторию.</p><small>Стиль</small></div>
           </article>
           <article class="step">
             <div class="step__num">03</div>
-            <div><h3>Финальный дизайн</h3><p>Довожу типографику, свет, цвета, детали и адаптирую результат под нужные размеры.</p></div>
+            <div><h3>Готовый макет</h3><p>Полирую детали, проверяю читаемость и подготавливаю итоговые размеры для публикации.</p><small>Файлы</small></div>
           </article>
         </div>
       </div>
@@ -1449,7 +1639,7 @@
           <div class="feature-panel__layout">
             <div>
               <div class="eyebrow">Преимущество</div>
-              <h2>Визуал собирается вокруг цели проекта</h2>
+              <h2 class="motion-title">Визуал собирается вокруг цели проекта</h2>
               <p class="section-copy">Я не делаю макет ради эффекта. Сначала выстраиваю смысл, затем подбираю композицию, свет, цвет и формат под площадку, где дизайн будет работать.</p>
             </div>
             <div class="feature-list">
@@ -1473,7 +1663,7 @@
           </div>
           <div class="proof-strip" aria-label="Примеры актуальных работ">
             <img src="public/poster.png" alt="Twitch Design Pack" />
-            <img src="public/grid.png" alt="Контент-сетка" />
+            <img src="public/grid.png" alt="Instagram grid" />
             <img src="public/A3.png" alt="Презентация re:box" />
           </div>
         </div>
@@ -1484,7 +1674,7 @@
       <div class="shell faq-grid">
         <div>
           <div class="eyebrow">FAQ</div>
-          <h2>Перед заказом</h2>
+          <h2 class="motion-title">Перед заказом</h2>
         </div>
         <div>
           <details open>
@@ -1505,9 +1695,14 @@
 
     <section class="order" id="orderSection">
       <div class="shell order-card">
+        <a class="back-to-top" href="#top" aria-label="Наверх">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 19V5m0 0-6 6m6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </a>
         <div>
           <div class="eyebrow">Заявка</div>
-          <h2>Давай сделаем визуал, который поможет человеку понять твой проект</h2>
+          <h2 class="motion-title">Давай сделаем визуал, который поможет человеку понять твой проект</h2>
           <p class="section-copy">Опиши задачу в пару предложений. Заявка уйдет в Telegram-бота со всеми заполненными данными, а я отвечу и уточню детали.</p>
           <div class="contact-list">
             <a href="https://t.me/frameoym" target="_blank" rel="noreferrer">Написать напрямую <span>@frameoym</span></a>
