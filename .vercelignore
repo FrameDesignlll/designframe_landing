@@ -1,0 +1,9 @@
+.env
+.env.*
+!.env.example
+.git
+.vercel
+node_modules
+database.sqlite
+server.out.log
+server.err.log
