@@ -363,6 +363,7 @@
       content: "";
       position: absolute;
       inset: 9% 10% 10% 4%;
+      z-index: 0;
       border-radius: 42px;
       background: radial-gradient(circle at 50% 0%, rgba(174, 99, 255, 0.68), rgba(85, 30, 205, 0.18) 38%, transparent 72%);
       filter: blur(18px);
@@ -516,6 +517,7 @@
 
     .browser {
       position: absolute;
+      z-index: 2;
       inset: 82px 36px 74px 28px;
       overflow: hidden;
       border: 1px solid var(--line-strong);
@@ -578,6 +580,7 @@
 
     .main-poster {
       position: absolute;
+      z-index: 2;
       left: 50%;
       bottom: 26px;
       width: min(56%, 320px);
@@ -589,6 +592,7 @@
 
     .float-card {
       position: absolute;
+      z-index: 4;
       overflow: hidden;
       border: 1px solid var(--line-strong);
       border-radius: 22px;
@@ -606,6 +610,7 @@
     }
 
     .float-card--left {
+      z-index: 5;
       left: 0;
       bottom: 78px;
       width: 210px;
@@ -614,6 +619,7 @@
     }
 
     .float-card--right {
+      z-index: 6;
       right: 0;
       top: 88px;
       width: 238px;
