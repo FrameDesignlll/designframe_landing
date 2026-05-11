@@ -6,15 +6,15 @@ const cors = require('cors');
 
 const app = express();
 const port = process.env.PORT || 3000;
-const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: false });
+const bot = process.env.BOT_TOKEN
+    ? new TelegramBot(process.env.BOT_TOKEN, { polling: false })
+    : null;
 const CHAT_ID = process.env.CHAT_ID;
 
-// Middleware
 app.use(express.json());
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Order API Endpoint
 app.post('/api/orders', async (req, res) => {
     const { name, telegram, description } = req.body;
 
@@ -30,6 +30,11 @@ app.post('/api/orders', async (req, res) => {
                             `📝 <b>Описание:</b>\n${description}`;
 
     try {
+        if (!bot || !CHAT_ID) {
+            console.error('Telegram is not configured. Add BOT_TOKEN and CHAT_ID to environment variables.');
+            return res.status(500).json({ error: 'Telegram is not configured' });
+        }
+
         await bot.sendMessage(CHAT_ID, notificationMsg, { parse_mode: 'HTML' });
         res.status(201).json({ success: true, message: 'Order created' });
     } catch (err) {
@@ -38,7 +43,6 @@ app.post('/api/orders', async (req, res) => {
     }
 });
 
-// Start Server
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
 });
