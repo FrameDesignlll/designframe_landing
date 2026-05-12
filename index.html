@@ -807,17 +807,14 @@
       font-weight: 800;
     }
 
-    .cases {
-      padding-top: 48px;
-    }
-
-    .case-list {
+    .work-cases {
       display: grid;
-      gap: 22px;
+      gap: 0;
+      margin-top: 22px;
     }
 
     .case-card {
-      display: grid;
+      display: none;
       grid-template-columns: 0.82fr 1fr;
       gap: 28px;
       align-items: stretch;
@@ -830,6 +827,10 @@
         rgba(8, 7, 18, 0.82);
       box-shadow: 0 28px 90px rgba(0, 0, 0, 0.22);
       scroll-margin-top: 120px;
+    }
+
+    .case-card:target {
+      display: grid;
     }
 
     .case-card__media {
@@ -1177,15 +1178,14 @@
     #faq::before {
       content: "";
       position: absolute;
-      inset: 44px max(20px, calc((100% - 1180px) / 2)) 44px;
+      inset: 86px max(56px, calc((100% - 1080px) / 2)) 86px;
       z-index: -1;
-      border: 1px solid rgba(185, 153, 255, 0.14);
-      border-radius: 34px;
+      border-radius: 42px;
       background:
-        radial-gradient(circle at 8% 18%, rgba(146, 91, 255, 0.22), transparent 30%),
-        radial-gradient(circle at 78% 24%, rgba(97, 216, 255, 0.08), transparent 32%),
-        linear-gradient(135deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.008));
-      box-shadow: inset 0 0 70px rgba(146, 91, 255, 0.05);
+        radial-gradient(circle at 12% 20%, rgba(146, 91, 255, 0.22), transparent 34%),
+        radial-gradient(circle at 74% 18%, rgba(97, 216, 255, 0.08), transparent 36%);
+      filter: blur(18px);
+      opacity: 0.68;
     }
 
     #faq::after {
@@ -1206,13 +1206,21 @@
       grid-template-columns: 0.72fr 1fr;
       gap: 44px;
       align-items: start;
+      padding: 58px 68px;
+      border: 1px solid rgba(185, 153, 255, 0.18);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 0% 0%, rgba(146, 91, 255, 0.18), transparent 34%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.012)),
+        rgba(8, 7, 18, 0.78);
+      box-shadow: inset 0 0 70px rgba(146, 91, 255, 0.05), 0 28px 90px rgba(0, 0, 0, 0.18);
     }
 
     .faq-list {
       display: grid;
       gap: 12px;
-      min-height: 420px;
-      padding-top: 64px;
+      min-height: 360px;
+      padding-top: 42px;
       align-content: start;
     }
 
@@ -1713,6 +1721,11 @@
         padding-top: 0;
       }
 
+      .faq-grid {
+        padding: 28px 18px;
+        border-radius: 24px;
+      }
+
       .work-card__meta {
         display: block;
       }
@@ -1722,7 +1735,7 @@
         margin-top: 14px;
       }
 
-      .cases {
+      .work-cases {
         padding-top: 28px;
       }
 
@@ -1743,9 +1756,13 @@
       .back-to-top {
         right: 16px;
         top: auto;
-        bottom: 16px;
+        bottom: -58px;
         width: 40px;
         height: 40px;
+      }
+
+      .order {
+        padding-bottom: 104px;
       }
 
       .feature-panel,
@@ -1871,21 +1888,21 @@
         </div>
 
         <div class="works-grid">
-          <a class="work-card work-card--tall" href="#case-twitch">
+          <a class="work-card work-card--tall" href="#work-case-twitch">
             <img src="public/poster.png" alt="Twitch Design Pack" />
             <div class="work-card__meta">
               <div><small>Stream design</small><h3>Twitch Design Pack</h3></div>
               <span>Открыть</span>
             </div>
           </a>
-          <a class="work-card" href="#case-bachat">
+          <a class="work-card" href="#work-case-bachat">
             <img src="public/grid.png" alt="Набор визуалов для соцсетей" />
             <div class="work-card__meta">
               <div><small>Social pack</small><h3>Instagram grid</h3></div>
               <span>Открыть</span>
             </div>
           </a>
-          <a class="work-card" href="#case-rebox">
+          <a class="work-card" href="#work-case-rebox">
             <img src="public/A3.png" alt="Презентация re:box" />
             <div class="work-card__meta">
               <div><small>Product presentation</small><h3>re:box</h3></div>
@@ -1893,12 +1910,9 @@
             </div>
           </a>
         </div>
-      </div>
-    </section>
 
-    <section class="cases" id="cases">
-      <div class="shell case-list">
-        <article class="case-card" id="case-twitch">
+        <div class="work-cases">
+        <article class="case-card" id="work-case-twitch">
           <div class="case-card__media">
             <img src="public/poster.png" alt="Разбор Twitch Design Pack" />
           </div>
@@ -1914,7 +1928,7 @@
           </div>
         </article>
 
-        <article class="case-card" id="case-bachat">
+        <article class="case-card" id="work-case-bachat">
           <div class="case-card__media">
             <img src="public/grid.png" alt="Разбор Instagram grid для Batchat" />
           </div>
@@ -1930,7 +1944,7 @@
           </div>
         </article>
 
-        <article class="case-card" id="case-rebox">
+        <article class="case-card" id="work-case-rebox">
           <div class="case-card__media">
             <img src="public/A3.png" alt="Разбор презентации re:box" />
           </div>
@@ -1945,6 +1959,7 @@
             </ul>
           </div>
         </article>
+        </div>
       </div>
     </section>
 
@@ -2157,8 +2172,10 @@
         }
 
         event.preventDefault();
-        target.scrollIntoView({ behavior: "smooth", block: "start" });
         history.pushState(null, "", targetId);
+        requestAnimationFrame(() => {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
       });
     });
 
