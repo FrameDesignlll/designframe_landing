@@ -617,12 +617,12 @@
     }
 
     .float-card--left {
-      z-index: 6;
+      z-index: 3;
       left: 0;
       bottom: 78px;
       width: 210px;
       aspect-ratio: 1;
-      transform: translate3d(calc(var(--parallax-x, 0px) * -0.72), calc(var(--parallax-y, 0px) * -0.5), 46px) rotate(-9deg);
+      transform: translate3d(calc(var(--parallax-x, 0px) * -0.52), calc(var(--parallax-y, 0px) * -0.38), 24px) rotate(-9deg);
     }
 
     .float-card--right {
@@ -805,6 +805,92 @@
       color: var(--muted);
       font-size: 13px;
       font-weight: 800;
+    }
+
+    .cases {
+      padding-top: 48px;
+    }
+
+    .case-list {
+      display: grid;
+      gap: 22px;
+    }
+
+    .case-card {
+      display: grid;
+      grid-template-columns: 0.82fr 1fr;
+      gap: 28px;
+      align-items: stretch;
+      padding: 24px;
+      border: 1px solid rgba(185, 153, 255, 0.2);
+      border-radius: 28px;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(146, 91, 255, 0.22), transparent 34%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.018)),
+        rgba(8, 7, 18, 0.82);
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.22);
+      scroll-margin-top: 120px;
+    }
+
+    .case-card__media {
+      overflow: hidden;
+      min-height: 320px;
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .case-card__media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.9;
+    }
+
+    .case-card__content {
+      display: grid;
+      align-content: center;
+      gap: 18px;
+    }
+
+    .case-card h3 {
+      font-size: clamp(30px, 3.4vw, 48px);
+      line-height: 1;
+    }
+
+    .case-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.72;
+    }
+
+    .case-points {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .case-points li {
+      position: relative;
+      padding-left: 22px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .case-points li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 8px;
+      height: 8px;
+      border: 1px solid rgba(201, 168, 255, 0.82);
+      border-radius: 3px;
+      transform: rotate(45deg);
+      box-shadow: 0 0 14px rgba(146, 91, 255, 0.38);
     }
 
     .services {
@@ -1081,6 +1167,38 @@
       color: var(--muted);
       font-size: 14px;
       line-height: 1.6;
+    }
+
+    #faq {
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    #faq::before {
+      content: "";
+      position: absolute;
+      inset: 44px max(20px, calc((100% - 1180px) / 2)) 44px;
+      z-index: -1;
+      border: 1px solid rgba(185, 153, 255, 0.14);
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 8% 18%, rgba(146, 91, 255, 0.22), transparent 30%),
+        radial-gradient(circle at 78% 24%, rgba(97, 216, 255, 0.08), transparent 32%),
+        linear-gradient(135deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.008));
+      box-shadow: inset 0 0 70px rgba(146, 91, 255, 0.05);
+    }
+
+    #faq::after {
+      content: "";
+      position: absolute;
+      inset: 70px max(56px, calc((100% - 1100px) / 2)) 70px;
+      z-index: -2;
+      opacity: 0.26;
+      background-image:
+        linear-gradient(rgba(201, 168, 255, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 168, 255, 0.12) 1px, transparent 1px);
+      background-size: 72px 72px;
+      mask-image: radial-gradient(circle at 52% 42%, #000 0 22%, transparent 68%);
     }
 
     .faq-grid {
@@ -1374,7 +1492,7 @@
     }
 
     footer {
-      padding: 28px 0 42px;
+      padding: 12px 0 22px;
       color: var(--muted-2);
     }
 
@@ -1384,8 +1502,8 @@
       justify-content: space-between;
       gap: 18px;
       border-top: 1px solid rgba(255, 255, 255, 0.08);
-      padding-top: 24px;
-      font-size: 14px;
+      padding-top: 16px;
+      font-size: 13px;
     }
 
     @media (max-width: 980px) {
@@ -1424,13 +1542,18 @@
       }
 
       .works-grid,
-      .service-grid {
+      .service-grid,
+      .case-card {
         grid-template-columns: 1fr;
       }
 
       .work-card,
       .work-card--tall {
         min-height: 480px;
+      }
+
+      .case-card__media {
+        min-height: 280px;
       }
 
       .process__sticky {
@@ -1599,6 +1722,20 @@
         margin-top: 14px;
       }
 
+      .cases {
+        padding-top: 28px;
+      }
+
+      .case-card {
+        padding: 16px;
+        border-radius: 22px;
+      }
+
+      .case-card__media {
+        min-height: 220px;
+        border-radius: 18px;
+      }
+
       .step {
         grid-template-columns: 1fr;
       }
@@ -1734,21 +1871,21 @@
         </div>
 
         <div class="works-grid">
-          <a class="work-card work-card--tall" href="https://t.me/framedesignx" target="_blank" rel="noreferrer">
+          <a class="work-card work-card--tall" href="#case-twitch">
             <img src="poster.png" alt="Twitch Design Pack" />
             <div class="work-card__meta">
               <div><small>Stream design</small><h3>Twitch Design Pack</h3></div>
               <span>Открыть</span>
             </div>
           </a>
-          <a class="work-card" href="https://t.me/framedesignx" target="_blank" rel="noreferrer">
+          <a class="work-card" href="#case-bachat">
             <img src="grid.png" alt="Набор визуалов для соцсетей" />
             <div class="work-card__meta">
               <div><small>Social pack</small><h3>Instagram grid</h3></div>
               <span>Открыть</span>
             </div>
           </a>
-          <a class="work-card" href="https://t.me/framedesignx" target="_blank" rel="noreferrer">
+          <a class="work-card" href="#case-rebox">
             <img src="A3.png" alt="Презентация re:box" />
             <div class="work-card__meta">
               <div><small>Product presentation</small><h3>re:box</h3></div>
@@ -1756,6 +1893,58 @@
             </div>
           </a>
         </div>
+      </div>
+    </section>
+
+    <section class="cases" id="cases">
+      <div class="shell case-list">
+        <article class="case-card" id="case-twitch">
+          <div class="case-card__media">
+            <img src="poster.png" alt="Разбор Twitch Design Pack" />
+          </div>
+          <div class="case-card__content">
+            <div class="eyebrow">Кейс / Twitch</div>
+            <h3>Twitch Design Pack для 1DRAPPER</h3>
+            <p>Проект для игрока, у которого основной фокус сейчас на Valorant и шутерах. Визуал должен был быстро цеплять внимание и сразу считываться как оформление для уверенного, агрессивного игрового образа.</p>
+            <ul class="case-points">
+              <li>Первым планом вывел красный контраст и крупный ник, чтобы баннер не терялся в потоке Twitch.</li>
+              <li>Через силуэты и динамику показал связь с Valorant, дуэлистами и полупрофессиональным вайбом игрока.</li>
+              <li>Собрал набор элементов для стрима: баннер, кнопки, блоки Telegram, TikTok, Discord, specs и about.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="case-card" id="case-bachat">
+          <div class="case-card__media">
+            <img src="grid.png" alt="Разбор Instagram grid для Batchat" />
+          </div>
+          <div class="case-card__content">
+            <div class="eyebrow">Кейс / Instagram</div>
+            <h3>Instagram grid для школы Batchat</h3>
+            <p>У школы танцев не было цельной визуальной системы, поэтому задача была не просто украсить посты, а собрать узнаваемый ритм страницы: живой, динамичный и понятный с первого взгляда.</p>
+            <ul class="case-points">
+              <li>Опирался на акцентные цвета танца, чтобы сетка ощущалась теплой, энергичной и связанной с направлением.</li>
+              <li>Сделал крупные заголовки и контрастные карточки, чтобы темы постов легко читались в ленте.</li>
+              <li>Собрал визуальный язык для школы: история, ошибки новичков, советы, вовлечение и эмоциональные публикации.</li>
+            </ul>
+          </div>
+        </article>
+
+        <article class="case-card" id="case-rebox">
+          <div class="case-card__media">
+            <img src="A3.png" alt="Разбор презентации re:box" />
+          </div>
+          <div class="case-card__content">
+            <div class="eyebrow">Кейс / Presentation</div>
+            <h3>re:box — презентация вымышленного продукта</h3>
+            <p>Это презентация концепта для защиты дипломного экзамена: обычная коробка не утилизируется как мусор, а получает вторую жизнь и превращается в мебель для дома.</p>
+            <ul class="case-points">
+              <li>Показал идею через спокойную предметную подачу: коробка, модульность, столы, стулья и варианты сборки.</li>
+              <li>Собрал структуру презентации так, чтобы было понятно: проблема упаковки, решение, сценарии использования.</li>
+              <li>Сохранил аккуратный учебный формат, потому что проект должен был выглядеть убедительно на защите.</li>
+            </ul>
+          </div>
+        </article>
       </div>
     </section>
 
