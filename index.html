@@ -28,6 +28,7 @@
       --green: #7bffbd;
       --shadow: 0 26px 80px rgba(66, 20, 160, 0.32);
       --radius: 22px;
+      --section-space: 64px;
     }
 
     * {
@@ -711,7 +712,7 @@
 
     section {
       position: relative;
-      padding: 74px 0;
+      padding: var(--section-space) 0;
     }
 
     .section-head {
@@ -1012,10 +1013,6 @@
       display: block;
     }
 
-    .feature-section {
-      padding-bottom: 22px;
-    }
-
     .feature-panel {
       position: relative;
       overflow: hidden;
@@ -1105,8 +1102,6 @@
     #faq {
       overflow: hidden;
       isolation: isolate;
-      padding-top: 22px;
-      padding-bottom: 28px;
     }
 
     #faq::before {
@@ -1243,8 +1238,7 @@
     }
 
     .order {
-      padding-top: 28px;
-      padding-bottom: 72px;
+      padding-bottom: var(--section-space);
     }
 
     .order-card {
@@ -1542,6 +1536,10 @@
     }
 
     @media (max-width: 680px) {
+      :root {
+        --section-space: 42px;
+      }
+
       .shell,
       .nav__inner {
         width: min(100% - 28px, 1180px);
@@ -1658,10 +1656,6 @@
         width: auto;
       }
 
-      section {
-        padding: 44px 0;
-      }
-
       .work-card,
       .work-card--tall {
         min-height: 390px;
@@ -1717,10 +1711,6 @@
         bottom: -58px;
         width: 40px;
         height: 40px;
-      }
-
-      .order {
-        padding-bottom: 104px;
       }
 
       .feature-panel,
