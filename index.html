@@ -711,7 +711,7 @@
 
     section {
       position: relative;
-      padding: 92px 0;
+      padding: 74px 0;
     }
 
     .section-head {
@@ -1012,6 +1012,10 @@
       display: block;
     }
 
+    .feature-section {
+      padding-bottom: 22px;
+    }
+
     .feature-panel {
       position: relative;
       overflow: hidden;
@@ -1101,12 +1105,14 @@
     #faq {
       overflow: hidden;
       isolation: isolate;
+      padding-top: 22px;
+      padding-bottom: 28px;
     }
 
     #faq::before {
       content: "";
       position: absolute;
-      inset: 86px max(56px, calc((100% - 1080px) / 2)) 86px;
+      inset: 56px max(56px, calc((100% - 1080px) / 2)) 56px;
       z-index: -1;
       border-radius: 42px;
       background:
@@ -1119,7 +1125,7 @@
     #faq::after {
       content: "";
       position: absolute;
-      inset: 70px max(56px, calc((100% - 1100px) / 2)) 70px;
+      inset: 46px max(56px, calc((100% - 1100px) / 2)) 46px;
       z-index: -2;
       opacity: 0.26;
       background-image:
@@ -1134,7 +1140,7 @@
       grid-template-columns: 0.72fr 1fr;
       gap: 44px;
       align-items: start;
-      padding: 58px 68px;
+      padding: 46px 60px;
       border: 1px solid rgba(185, 153, 255, 0.18);
       border-radius: 34px;
       background:
@@ -1237,6 +1243,7 @@
     }
 
     .order {
+      padding-top: 28px;
       padding-bottom: 72px;
     }
 
@@ -1652,7 +1659,7 @@
       }
 
       section {
-        padding: 58px 0;
+        padding: 44px 0;
       }
 
       .work-card,
@@ -1687,7 +1694,7 @@
       }
 
       .faq-grid {
-        padding: 28px 18px;
+        padding: 24px 18px;
         border-radius: 24px;
       }
 
@@ -1925,7 +1932,7 @@
       </div>
     </section>
 
-    <section>
+    <section class="feature-section">
       <div class="shell split">
         <div class="feature-panel">
           <div class="feature-panel__layout">
