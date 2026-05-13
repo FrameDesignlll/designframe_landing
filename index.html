@@ -1245,7 +1245,7 @@
       display: grid;
       grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
       gap: 42px;
-      align-items: center;
+      align-items: start;
       padding: 34px;
       border: 1px solid var(--line-strong);
       border-radius: 34px;
@@ -1394,25 +1394,12 @@
     }
 
     .order-card form {
-      padding-top: 0;
+      padding-top: 46px;
     }
 
     .form-progress {
       display: grid;
-      gap: 9px;
-      margin-bottom: 2px;
-    }
-
-    .form-progress__top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
+      margin: -2px 0 0;
     }
 
     .form-progress__track {
@@ -2011,7 +1998,7 @@
         </a>
         <div>
           <div class="eyebrow">Заявка</div>
-          <h2 class="motion-title">Давай сделаем визуал, который поможет тебе довести проект до результата</h2>
+          <h2 class="motion-title">Визуал, который поможет тебе довести проект до результата</h2>
           <p class="section-copy">Опиши задачу в пару предложений. Заявка уйдет в Telegram-бота со всеми заполненными данными, а я отвечу и уточню детали.</p>
           <div class="contact-list">
             <a href="https://t.me/frameoym" target="_blank" rel="noreferrer">Написать напрямую <span>@frameoym</span></a>
@@ -2019,15 +2006,6 @@
           </div>
         </div>
         <form id="orderForm">
-          <div class="form-progress" aria-hidden="true">
-            <div class="form-progress__top">
-              <span>Прогресс заявки</span>
-              <span id="formProgressValue">0%</span>
-            </div>
-            <div class="form-progress__track">
-              <div class="form-progress__bar" id="formProgressBar"></div>
-            </div>
-          </div>
           <div class="field">
             <label for="nameInput">Как к тебе обращаться?</label>
             <input id="nameInput" name="name" autocomplete="name" placeholder="Имя или ник" required />
@@ -2039,6 +2017,11 @@
           <div class="field">
             <label for="descriptionInput">Описание задачи</label>
             <textarea id="descriptionInput" name="description" placeholder="Например: нужен баннер для Twitch, аватар и 4 панели в темном фиолетовом стиле" required></textarea>
+          </div>
+          <div class="form-progress" aria-hidden="true">
+            <div class="form-progress__track">
+              <div class="form-progress__bar" id="formProgressBar"></div>
+            </div>
           </div>
           <button class="btn btn--primary" type="submit">Отправить заявку</button>
           <p class="form-status" id="formStatus" role="status"></p>
@@ -2127,7 +2110,6 @@
     const orderForm = document.getElementById("orderForm");
     const formStatus = document.getElementById("formStatus");
     const formProgressBar = document.getElementById("formProgressBar");
-    const formProgressValue = document.getElementById("formProgressValue");
     const progressFields = [
       document.getElementById("nameInput"),
       document.getElementById("telegramInput"),
@@ -2138,9 +2120,6 @@
       const filled = progressFields.filter((field) => field && field.value.trim().length > 0).length;
       const progress = Math.round((filled / progressFields.length) * 100);
       formProgressBar?.style.setProperty("--form-progress", `${progress}%`);
-      if (formProgressValue) {
-        formProgressValue.textContent = `${progress}%`;
-      }
     };
 
     progressFields.forEach((field) => {
