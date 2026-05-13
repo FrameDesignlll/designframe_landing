@@ -1043,72 +1043,40 @@
       position: relative;
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
+      gap: 16px;
       margin-top: 0;
       max-width: none;
-      padding: 26px;
-      border: 1px solid rgba(185, 153, 255, 0.16);
-      border-radius: 28px;
-      background:
-        linear-gradient(rgba(201, 168, 255, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201, 168, 255, 0.1) 1px, transparent 1px),
-        radial-gradient(circle at 50% 50%, rgba(123, 255, 189, 0.24) 0 4px, transparent 5px 52px, rgba(201, 168, 255, 0.22) 53px 54px, transparent 55px 104px, rgba(146, 91, 255, 0.2) 105px 106px, transparent 107px 156px, rgba(97, 216, 255, 0.12) 157px 158px, transparent 159px),
-        radial-gradient(circle at 50% 50%, rgba(146, 91, 255, 0.2), transparent 58%),
-        rgba(7, 8, 18, 0.38);
-      background-size: 52px 52px, 52px 52px, auto, auto, auto;
-      box-shadow: inset 0 0 70px rgba(146, 91, 255, 0.08);
-    }
-
-    .feature-list::before,
-    .feature-list::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 50%;
-      z-index: 0;
-      pointer-events: none;
-      background: rgba(201, 168, 255, 0.18);
-      opacity: 0.52;
-    }
-
-    .feature-list::before {
-      width: 1px;
-      height: calc(100% - 32px);
-      transform: translate(-50%, -50%);
-    }
-
-    .feature-list::after {
-      width: calc(100% - 32px);
-      height: 1px;
-      transform: translate(-50%, -50%);
     }
 
     .feature-card {
       position: relative;
       z-index: 1;
       overflow: hidden;
-      min-height: 136px;
+      min-height: 144px;
       padding: 20px;
       border: 1px solid rgba(255, 255, 255, 0.09);
       border-radius: 20px;
       background:
-        radial-gradient(circle at 88% 16%, rgba(123, 255, 189, 0.11), transparent 16%),
-        linear-gradient(135deg, rgba(201, 168, 255, 0.1), rgba(146, 91, 255, 0.04)),
-        rgba(9, 8, 18, 0.78);
-      backdrop-filter: blur(14px);
+        linear-gradient(135deg, rgba(201, 168, 255, 0.09), rgba(146, 91, 255, 0.035)),
+        rgba(255, 255, 255, 0.035);
       transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
     }
 
     .feature-card::before {
       content: "";
       position: absolute;
-      right: 16px;
-      top: 16px;
-      width: 16px;
-      height: 16px;
-      border: 1px solid rgba(201, 168, 255, 0.32);
+      left: 0;
+      top: 18px;
+      bottom: 18px;
+      width: 3px;
       border-radius: 999px;
-      box-shadow: 0 0 18px rgba(146, 91, 255, 0.22);
+      background: linear-gradient(180deg, var(--green), var(--violet));
+      box-shadow: 0 0 22px rgba(146, 91, 255, 0.42);
+    }
+
+    .feature-card:nth-child(2),
+    .feature-card:nth-child(3) {
+      transform: translateY(18px);
     }
 
     .feature-card:hover {
@@ -1117,6 +1085,11 @@
       background:
         linear-gradient(135deg, rgba(201, 168, 255, 0.13), rgba(146, 91, 255, 0.06)),
         rgba(255, 255, 255, 0.045);
+    }
+
+    .feature-card:nth-child(2):hover,
+    .feature-card:nth-child(3):hover {
+      transform: translateY(10px);
     }
 
     .feature-card span {
@@ -1280,8 +1253,9 @@
     .order-card {
       position: relative;
       display: grid;
-      grid-template-columns: 0.72fr 1fr;
-      gap: 34px;
+      grid-template-columns: minmax(0, 0.78fr) minmax(420px, 1fr);
+      gap: 42px;
+      align-items: center;
       padding: 34px;
       border: 1px solid var(--line-strong);
       border-radius: 34px;
@@ -1321,54 +1295,17 @@
       animation: orderFrameFloat 6.5s ease-in-out infinite alternate;
     }
 
-    .order-frame {
-      position: absolute;
-      z-index: 0;
-      width: var(--size);
-      height: calc(var(--size) * 0.62);
-      border: 1px solid rgba(201, 168, 255, 0.2);
-      border-radius: 14px;
-      opacity: 0.4;
-      pointer-events: none;
-      box-shadow: inset 0 0 18px rgba(146, 91, 255, 0.1), 0 0 28px rgba(146, 91, 255, 0.12);
-      animation: orderFrameDrift var(--speed) ease-in-out infinite alternate;
-    }
-
-    .order-frame--one {
-      --size: 98px;
-      --speed: 7s;
-      left: 8%;
-      bottom: 16%;
-      transform: rotate(-7deg);
-    }
-
-    .order-frame--two {
-      --size: 68px;
-      --speed: 5.8s;
-      left: 42%;
-      top: 16%;
-      animation-delay: -1.8s;
-    }
-
-    .order-frame--three {
-      --size: 128px;
-      --speed: 8.5s;
-      right: 8%;
-      top: 12%;
-      animation-delay: -3s;
-    }
-
-    .order-frame--four {
-      --size: 54px;
-      --speed: 6.6s;
-      right: 22%;
-      bottom: 19%;
-      animation-delay: -4.2s;
-    }
-
-    .order-card > :not(.order-frame) {
+    .order-card > * {
       position: relative;
       z-index: 1;
+    }
+
+    .order-card > div {
+      grid-column: 1;
+    }
+
+    .order-card form {
+      grid-column: 2;
     }
 
     @keyframes orderGlow {
@@ -1384,11 +1321,6 @@
     @keyframes orderFrameFloat {
       from { transform: translate3d(-10px, 6px, 0) rotate(-5deg); opacity: 0.28; }
       to { transform: translate3d(16px, -10px, 0) rotate(4deg); opacity: 0.62; }
-    }
-
-    @keyframes orderFrameDrift {
-      from { translate: -12px 8px; rotate: -4deg; opacity: 0.24; }
-      to { translate: 16px -12px; rotate: 5deg; opacity: 0.58; }
     }
 
     .back-to-top {
@@ -1472,7 +1404,7 @@
     }
 
     .order-card form {
-      padding-top: 44px;
+      padding-top: 0;
     }
 
     .form-progress {
@@ -1582,6 +1514,11 @@
       .faq-grid,
       .order-card {
         grid-template-columns: 1fr;
+      }
+
+      .order-card > div,
+      .order-card form {
+        grid-column: 1;
       }
 
       .feature-panel__layout,
@@ -1810,17 +1747,18 @@
 
       .feature-list {
         grid-template-columns: 1fr;
-        padding: 18px;
-      }
-
-      .feature-list::before,
-      .feature-list::after {
-        opacity: 0.28;
       }
 
       .feature-panel__layout,
       .feature-list {
         grid-template-columns: 1fr;
+      }
+
+      .feature-card:nth-child(2),
+      .feature-card:nth-child(3),
+      .feature-card:nth-child(2):hover,
+      .feature-card:nth-child(3):hover {
+        transform: none;
       }
 
       .footer__inner {
@@ -2083,10 +2021,6 @@
 
     <section class="order" id="orderSection">
       <div class="shell order-card">
-        <span class="order-frame order-frame--one" aria-hidden="true"></span>
-        <span class="order-frame order-frame--two" aria-hidden="true"></span>
-        <span class="order-frame order-frame--three" aria-hidden="true"></span>
-        <span class="order-frame order-frame--four" aria-hidden="true"></span>
         <a class="back-to-top" href="#top" aria-label="Наверх">
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path d="M12 19V5m0 0-6 6m6-6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
@@ -2147,7 +2081,7 @@
         window.scrollTo(0, 0);
       }
     });
-    const shortWords = /(^|[\s(«„"'])(а|в|во|да|до|за|и|из|к|ко|на|не|о|об|от|по|с|со|у)\s+/giu;
+    const shortWords = /(^|[\s(«„"'])([А-ЯЁа-яёA-Za-z]{1,3})\s+(?=[А-ЯЁа-яёA-Za-z0-9])/gu;
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
       acceptNode(node) {
         const parent = node.parentElement;

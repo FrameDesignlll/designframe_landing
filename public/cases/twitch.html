@@ -70,5 +70,25 @@
       </div>
     </article>
   </main>
+  <script>
+    const shortWords = /(^|[\s(«„"'])([А-ЯЁа-яёA-Za-z]{1,3})\s+(?=[А-ЯЁа-яёA-Za-z0-9])/gu;
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode(node) {
+        const parent = node.parentElement;
+        if (!parent || ["SCRIPT", "STYLE", "TEXTAREA", "INPUT"].includes(parent.tagName)) {
+          return NodeFilter.FILTER_REJECT;
+        }
+        shortWords.lastIndex = 0;
+        return shortWords.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+      }
+    });
+    const textNodes = [];
+    while (walker.nextNode()) {
+      textNodes.push(walker.currentNode);
+    }
+    textNodes.forEach((node) => {
+      node.nodeValue = node.nodeValue.replace(shortWords, "$1$2\u00A0");
+    });
+  </script>
 </body>
 </html>
