@@ -1074,22 +1074,12 @@
       box-shadow: 0 0 22px rgba(146, 91, 255, 0.42);
     }
 
-    .feature-card:nth-child(2),
-    .feature-card:nth-child(3) {
-      transform: translateY(18px);
-    }
-
     .feature-card:hover {
       transform: translateY(-4px);
       border-color: rgba(201, 168, 255, 0.24);
       background:
         linear-gradient(135deg, rgba(201, 168, 255, 0.13), rgba(146, 91, 255, 0.06)),
         rgba(255, 255, 255, 0.045);
-    }
-
-    .feature-card:nth-child(2):hover,
-    .feature-card:nth-child(3):hover {
-      transform: translateY(10px);
     }
 
     .feature-card span {
@@ -1752,13 +1742,6 @@
       .feature-panel__layout,
       .feature-list {
         grid-template-columns: 1fr;
-      }
-
-      .feature-card:nth-child(2),
-      .feature-card:nth-child(3),
-      .feature-card:nth-child(2):hover,
-      .feature-card:nth-child(3):hover {
-        transform: none;
       }
 
       .footer__inner {
